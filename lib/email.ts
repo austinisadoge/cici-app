@@ -108,7 +108,7 @@ function renderPaid(d: OrderEmailData) {
 <h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${zh ? `${d.customerName} 您好` : `Hello, ${d.customerName}`}</h2>
 <p style="color:#737373;font-size:14px;line-height:1.7;">${zh ? '我們已確認收到您的付款，正在準備您的作品。' : "We've received your payment and are preparing your piece."}</p>
 <div style="background:#FAF7F2;padding:16px 20px;margin:24px 0;text-align:center;letter-spacing:.1em;">${zh ? '訂單編號' : 'Order'} <strong>${d.orderNumber}</strong></div>
-<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '手工編織需要時間，預計 7～14 天內為您寄出。出貨後您會收到追蹤通知。' : 'Handweaving takes time. We expect to ship within 7–14 days. You\\'ll receive a tracking notification once shipped.'}</p>
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '手工編織需要時間，預計 7～14 天內為您寄出。出貨後您會收到追蹤通知。' : "Handweaving takes time. We expect to ship within 7–14 days. You'll receive a tracking notification once shipped."}</p>
 <p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '感謝您支持手作。' : 'Thank you for supporting handmade craft.'}</p>`)
 }
 
