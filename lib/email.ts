@@ -68,10 +68,10 @@ function wrap(body: string) {
 <div style="max-width:560px;margin:0 auto;background:#fff;padding:48px 32px;border:1px solid #E5E5E5;">
 <div style="text-align:center;margin-bottom:32px;">
 <h1 style="font-family:Georgia,serif;font-weight:400;font-size:32px;letter-spacing:.16em;margin:0;">CiCi</h1>
-<div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#737373;margin-top:8px;">Handwoven · Taiwan</div>
+<div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#737373;margin-top:8px;">Daily Jewelry · Taiwan</div>
 </div>
 ${body}
-<div style="margin-top:40px;padding-top:24px;border-top:1px solid #E5E5E5;text-align:center;font-size:11px;letter-spacing:.1em;color:#737373;">© 2026 CiCi · Handwoven in Taiwan</div>
+<div style="margin-top:40px;padding-top:24px;border-top:1px solid #E5E5E5;text-align:center;font-size:11px;letter-spacing:.1em;color:#737373;">© 2026 CiCi Daily Jewelry · Handmade in Taiwan</div>
 </div></body></html>`
 }
 

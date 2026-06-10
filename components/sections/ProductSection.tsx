@@ -2,7 +2,7 @@
 
 import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
-import type { Product } from '@/lib/products'
+import { seriesById, type Product } from '@/lib/products'
 import { Price } from '../Price'
 
 type Lex = { zh: string; en: string }
@@ -52,6 +52,9 @@ export function ProductSection({ id, kicker, title, viewAll, products }: Props) 
                 >
                   +
                 </button>
+              </div>
+              <div className="card-series">
+                {t(seriesById(p.series).name.zh, seriesById(p.series).name.en)}
               </div>
               <div className="name">{t(p.name.zh, p.name.en)}</div>
               <div className="meta">{t(p.meta.zh, p.meta.en)}</div>

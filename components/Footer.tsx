@@ -9,21 +9,25 @@ export function Footer() {
       <div className="container-x">
         <div className="foot">
           <div>
-            <div className="brand-name">CiCi</div>
+            <div className="brand-name">
+              CiCi
+              <span className="brand-name-sub">DAILY JEWELRY</span>
+            </div>
             <p className="brand-desc">
               {t(
-                '台灣手作編織飾品。一根繩、一顆石、無數個結，從台灣寄送到每一位珍惜手作的人手上。',
-                'Handwoven jewelry from Taiwan. A strand, a stone, countless knots, shipped from Taiwan to those who value the craft.'
+                '透過編織、針線與顏料，收藏生活中的風景。運用大自然饋贈的禮物，創作兼具故事感與日常感的生活作品。',
+                'Collecting the sceneries of life through weaving, needlework and paint. Works made with gifts from nature, carrying both story and everyday ease.'
               )}
             </p>
           </div>
           <div>
-            <h4>{t('選購', 'Shop')}</h4>
+            <h4>{t('五大系列', 'Series')}</h4>
             <ul>
-              <li>{t('全部手環', 'All Bracelets')}</li>
-              <li>{t('全部耳環', 'All Earrings')}</li>
-              <li>{t('客製訂製', 'Made to Order')}</li>
-              <li>{t('新品上架', 'New Arrivals')}</li>
+              <li>{t('生活風景', 'Living Scenery')}</li>
+              <li>{t('礦石物語', 'Stone Stories')}</li>
+              <li>{t('日常拾光', 'Daily Glimmers')}</li>
+              <li>{t('祝福小物', 'Little Blessings')}</li>
+              <li>{t('生物力量', 'Living Force')}</li>
             </ul>
           </div>
           <div>
@@ -55,7 +59,10 @@ export function Footer() {
         </div>
         <div className="foot-bot">
           <span>
-            {t('© 2026 CiCi．台灣手作', '© 2026 CiCi · HANDWOVEN IN TAIWAN')}
+            {t(
+              '© 2026 CiCi Daily Jewelry．台灣手作',
+              '© 2026 CiCi DAILY JEWELRY · HANDMADE IN TAIWAN'
+            )}
           </span>
           <span>{t('隱私．條款', 'PRIVACY · TERMS')}</span>
         </div>

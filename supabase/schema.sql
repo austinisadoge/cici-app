@@ -5,7 +5,15 @@
 create table if not exists products (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
-  category text not null check (category in ('bracelet', 'earring', 'other')),
+  series text not null check (series in (
+    'living-scenery', 'stone-stories', 'daily-glimmers',
+    'little-blessings', 'living-force'
+  )),
+  category text not null check (category in (
+    'earrings', 'braided-bracelets', 'chain-bracelets', 'beaded-bracelets',
+    'necklaces', 'anklets', 'hanging-charms', 'decor', 'little-things',
+    'paintings', 'diamond-paintings', 'cross-stitch', 'embroidery'
+  )),
   name_zh text not null,
   name_en text not null,
   description_zh text,
@@ -143,14 +151,16 @@ create policy "No public access to order items"
   on order_items for select using (false);
 
 -- ====== SEED DATA ======
-insert into products (slug, category, name_zh, name_en, meta_zh, meta_en, price_twd, price_myr, stock_status, is_new, sort_order) values
-  ('sage', 'bracelet', '灰綠', 'Sage', '手工編織．包體水晶', 'Handwoven · Lodolite Quartz', 1680, 230, 'made-to-order', false, 1),
-  ('coral', 'bracelet', '珊瑚', 'Coral', '手工編織．髮晶', 'Handwoven · Rutilated Quartz', 1580, 216, 'made-to-order', false, 2),
-  ('mist', 'bracelet', '灰藍', 'Mist', '手工編織．太陽石', 'Handwoven · Sunstone', 1480, 202, 'in-stock', false, 3),
-  ('rosa', 'earring', '玫粉', 'Rosa', '編織圓圈．14k 包金耳鉤', 'Woven Hoop · 14k Gold-filled Hook', 880, 120, 'in-stock', true, 10),
-  ('azure', 'earring', '藍綠', 'Azure', '編織圓圈．金屬細線', 'Woven Hoop · Metallic Thread', 920, 126, 'in-stock', false, 11),
-  ('plume', 'earring', '流蘇', 'Plume', '箭羽流蘇．黃銅耳鉤', 'Chevron Tassel · Brass Hook', 1180, 162, 'in-stock', false, 12)
+insert into products (slug, series, category, name_zh, name_en, meta_zh, meta_en, price_twd, price_myr, stock_status, is_new, sort_order) values
+  ('sage', 'stone-stories', 'braided-bracelets', '灰綠', 'Sage', '手工編織．包體水晶', 'Handwoven · Lodolite Quartz', 1680, 230, 'made-to-order', false, 1),
+  ('coral', 'stone-stories', 'braided-bracelets', '珊瑚', 'Coral', '手工編織．髮晶', 'Handwoven · Rutilated Quartz', 1580, 216, 'made-to-order', false, 2),
+  ('mist', 'stone-stories', 'braided-bracelets', '灰藍', 'Mist', '手工編織．太陽石', 'Handwoven · Sunstone', 1480, 202, 'in-stock', false, 3),
+  ('rosa', 'daily-glimmers', 'earrings', '玫粉', 'Rosa', '編織圓圈．14k 包金耳鉤', 'Woven Hoop · 14k Gold-filled Hook', 880, 120, 'in-stock', true, 10),
+  ('azure', 'living-scenery', 'earrings', '藍綠', 'Azure', '編織圓圈．金屬細線', 'Woven Hoop · Metallic Thread', 920, 126, 'in-stock', false, 11),
+  ('plume', 'living-scenery', 'earrings', '流蘇', 'Plume', '箭羽流蘇．黃銅耳鉤', 'Chevron Tassel · Brass Hook', 1180, 162, 'in-stock', false, 12)
 on conflict (slug) do nothing;
+
+create index if not exists idx_products_series on products(series) where is_active = true;
 
 insert into product_images (product_id, url, alt_text)
 select id, '/images/bracelet-sage.jpg', 'Sage 灰綠' from products where slug = 'sage'

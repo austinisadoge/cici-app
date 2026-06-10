@@ -3,8 +3,9 @@ import { Providers } from './providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'CiCi · Handwoven Jewelry from Taiwan',
-  description: 'Handwoven jewelry crafted by artisans in Taiwan. Bracelets, earrings, and made-to-order pieces.',
+  title: 'CiCi Daily Jewelry · Handmade in Taiwan',
+  description:
+    'Collecting the sceneries of life through weaving, needlework and paint. Handmade earrings, bracelets, necklaces and more, crafted in Taiwan.',
 }
 
 export default function RootLayout({

@@ -14,18 +14,18 @@ export function FiftyFiftyHero() {
         <h1 className="serif">
           {lang === 'zh' ? (
             <>
-              手作的<br />耐心。
+              收藏生活中<br />的風景。
             </>
           ) : (
             <>
-              Handwoven<br />with <em>patience</em>.
+              Collecting the<br /><em>sceneries</em> of life.
             </>
           )}
         </h1>
         <p className="lead">
           {t(
-            '每一條手環、每一對耳環，都由匠人在台灣以雙手逐結編成。沒有兩件相同，這是手作的本質。',
-            'Each bracelet, each pair of earrings is woven by hand in Taiwan, one knot at a time. No two are alike. That is the nature of the craft.'
+            '透過編織、針線與顏料等多元媒材，將自然色彩、天然素材與礦石紋理，一件一件慢慢化為獨一無二的手工作品。',
+            'Through weaving, needlework and paint, natural colours, organic materials and mineral textures slowly become one-of-a-kind handmade pieces.'
           )}
         </p>
         <div className="btn-row">

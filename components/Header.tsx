@@ -10,12 +10,15 @@ export function Header() {
     <header className="nav">
       <div className="container-x nav-in">
         <div className="nav-left">
-          <a href="#shop">{t('商品', 'SHOP')}</a>
-          <a href="#bracelets">{t('手環', 'BRACELETS')}</a>
-          <a href="#earrings">{t('耳環', 'EARRINGS')}</a>
-          <a href="#about">{t('故事', 'JOURNAL')}</a>
+          <a href="/#series">{t('系列', 'SERIES')}</a>
+          <a href="/#bracelets">{t('手繩', 'BRACELETS')}</a>
+          <a href="/#earrings">{t('耳飾', 'EARRINGS')}</a>
+          <a href="/#about">{t('理念', 'PHILOSOPHY')}</a>
         </div>
-        <div className="nav-logo">CiCi</div>
+        <a href="/" className="nav-logo">
+          CiCi
+          <span className="nav-logo-sub">DAILY JEWELRY</span>
+        </a>
         <div className="nav-right">
           <div className="lang-switch" title="Switch language">
             <svg

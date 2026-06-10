@@ -10,31 +10,31 @@ export function EditorialSection() {
         <div className="ed-grid">
           <div className="ed-img" />
           <div>
-            <span className="kicker">{t('我們的故事', 'Our Story')}</span>
+            <span className="kicker">{t('品牌理念', 'Our Philosophy')}</span>
             <h2 className="serif">
               {lang === 'zh' ? (
                 <>
-                  一根繩，一顆石，<br />一生的手藝。
+                  那些讓妳駐足、微笑<br />與感動的片刻。
                 </>
               ) : (
                 <>
-                  A strand, a stone,<br />a lifetime of craft.
+                  The moments that make<br />you pause and smile.
                 </>
               )}
             </h2>
             <p>
               {t(
-                'CiCi 不只是品牌，更是一種工序。從選線、配色、纏繞、打結，到鑲嵌寶石，每一步都由匠人在台灣手工完成。沒有機器、沒有捷徑，一件作品平均要花六到十二小時。',
-                'CiCi is not only a brand, but a process. From selecting threads and layering colours, to knotting and setting the stone, every step is finished by hand in a Taipei studio. No machines, no shortcuts. A single piece takes six to twelve hours to complete.'
+                '透過編織、針線、顏料等多元化的創作媒材，收藏生活中的風景，是 CiCi 看待世界的方式。生活中某天當下的心情，那些能讓妳駐足、微笑、想像與感動的美好片刻，皆是創作靈感的泉源。',
+                'Collecting the sceneries of life through weaving, needlework and paint. This is how CiCi sees the world. The moments that make you pause, smile, imagine and feel, they are where every piece begins.'
               )}
             </p>
             <p>
               {t(
-                '我們相信，當作品花了這麼多時間誕生，戴上它的人會感覺得到。從台灣寄出，送到台灣與馬來西亞，到每一位珍惜手作的人手上。',
-                'We believe that when a piece takes this much time to come into the world, the wearer can feel it. Shipped from Taiwan to Taiwan and Malaysia, into the hands of those who value the slow craft.'
+                '將自然色彩、天然素材與礦石紋理所蘊藏的獨特風景，結合多樣式的手作技巧，一件一件慢慢地化為獨一無二的手工作品。願每一份喜歡，都能在某個瞬間，與自己溫柔的對話、與另一顆心產生共鳴。',
+                'Natural colours, organic materials and the landscapes hidden inside mineral stones, slowly transformed by hand into one-of-a-kind works. May every piece you love become a gentle conversation with yourself, and a quiet resonance with another heart.'
               )}
             </p>
-            <div className="sig">{t('——CiCi．於台灣', '— CiCi, Taiwan')}</div>
+            <div className="sig">{t('——CiCi Daily Jewelry．於台灣', '— CiCi Daily Jewelry, Taiwan')}</div>
           </div>
         </div>
       </div>
