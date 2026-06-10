@@ -1,0 +1,64 @@
+'use client'
+
+import { useI18n } from '@/lib/i18n'
+
+export function PaymentShipping() {
+  const { t } = useI18n()
+  return (
+    <section className="pay-sec">
+      <div className="container-x">
+        <div className="sec-head pay-head">
+          <span className="kicker">{t('付款與寄送', 'Payment & Shipping')}</span>
+          <h2 className="serif">
+            {t('從台灣或馬來西亞下單', 'Buy from Taiwan or Malaysia')}
+          </h2>
+        </div>
+        <div className="pay-grid">
+          <div className="pay-cell">
+            <div className="ic">TNG</div>
+            <h3 className="serif">TNG eWallet</h3>
+            <p>
+              {t(
+                '下單後顯示 TNG 收款 QR 碼，掃碼用馬幣付款，完成後回傳付款截圖。確認入帳後安排出貨。',
+                'After ordering, a TNG QR code will be shown. Scan to pay in MYR, then send the payment screenshot. We ship once verified.'
+              )}
+            </p>
+            <div className="where">{t('馬來西亞', 'Malaysia')}</div>
+          </div>
+          <div className="pay-cell">
+            <div className="ic">{t('匯款', 'TRANSFER')}</div>
+            <h3 className="serif">{t('銀行匯款', 'Bank Transfer')}</h3>
+            <p>
+              {t(
+                '下單後系統顯示收款帳號，ATM 或臨櫃轉帳完成後回填末五碼。我們確認入帳後安排出貨。',
+                'After placing an order, the bank account will be shown. Complete the transfer via ATM or in-branch, then reply with the last 5 digits to confirm. We ship once verified.'
+              )}
+            </p>
+            <div className="where">{t('台灣', 'Taiwan')}</div>
+          </div>
+        </div>
+        <div className="ship-row">
+          <div>
+            <b className="serif">{t('台灣', 'Taiwan')}</b>
+            <span>{t('NT$60．滿 NT$1,500 免運', 'NT$60 · Free over NT$1,500')}</span>
+          </div>
+          <div>
+            <b className="serif">{t('馬來西亞', 'Malaysia')}</b>
+            <span>
+              {t('RM35 起．滿 RM300 免運', 'From RM35 · Free over RM300')}
+            </span>
+          </div>
+          <div>
+            <b className="serif">{t('出貨時間', 'Lead time')}</b>
+            <span>
+              {t(
+                '現貨 1–3 天．客製 7–14 天',
+                'In stock 1–3 days · Made to order 7–14 days'
+              )}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

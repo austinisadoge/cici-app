@@ -1,0 +1,66 @@
+'use client'
+
+import { useI18n } from '@/lib/i18n'
+
+export function Header() {
+  const { lang, setLang, cur, setCur, t } = useI18n()
+  return (
+    <header className="nav">
+      <div className="container-x nav-in">
+        <div className="nav-left">
+          <a href="#shop">{t('商品', 'SHOP')}</a>
+          <a href="#bracelets">{t('手環', 'BRACELETS')}</a>
+          <a href="#earrings">{t('耳環', 'EARRINGS')}</a>
+          <a href="#about">{t('故事', 'JOURNAL')}</a>
+        </div>
+        <div className="nav-logo">CiCi</div>
+        <div className="nav-right">
+          <div className="lang-switch" title="Switch language">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2 a15 15 0 0 1 0 20 a15 15 0 0 1 0 -20" />
+            </svg>
+            <span
+              className={`lang-pill ${lang === 'zh' ? 'on' : ''}`}
+              onClick={() => setLang('zh')}
+            >
+              繁
+            </span>
+            <span className="lang-divider">／</span>
+            <span
+              className={`lang-pill ${lang === 'en' ? 'on' : ''}`}
+              onClick={() => setLang('en')}
+            >
+              EN
+            </span>
+          </div>
+          <div className="cur-switch">
+            <span
+              className={`cur-pill ${cur === 'nt' ? 'on' : ''}`}
+              onClick={() => setCur('nt')}
+            >
+              NT$
+            </span>
+            <span className="lang-divider">／</span>
+            <span
+              className={`cur-pill ${cur === 'rm' ? 'on' : ''}`}
+              onClick={() => setCur('rm')}
+            >
+              RM
+            </span>
+          </div>
+          <span className="nav-action">{t('搜尋', 'SEARCH')}</span>
+          <span className="nav-action bag">{t('購物袋', 'BAG')}</span>
+        </div>
+      </div>
+    </header>
+  )
+}
