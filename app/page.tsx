@@ -2,6 +2,7 @@ import { Header } from '@/components/Header'
 import { Announcement } from '@/components/Announcement'
 import { Footer } from '@/components/Footer'
 import { MusicButton } from '@/components/MusicButton'
+import { CartDrawer } from '@/components/CartDrawer'
 import { FiftyFiftyHero } from '@/components/sections/FiftyFiftyHero'
 import { ProductSection } from '@/components/sections/ProductSection'
 import { LargeHero } from '@/components/sections/LargeHero'
@@ -38,6 +39,7 @@ export default function HomePage() {
       <Newsletter />
       <Footer />
       <MusicButton />
+      <CartDrawer />
     </>
   )
 }

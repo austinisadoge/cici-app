@@ -1,6 +1,7 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { useCart } from '@/lib/cart'
 import type { Product } from '@/lib/products'
 import { Price } from '../Price'
 
@@ -16,6 +17,7 @@ interface Props {
 
 export function ProductSection({ id, kicker, title, viewAll, products }: Props) {
   const { t } = useI18n()
+  const { add, open } = useCart()
   return (
     <section className="sec" id={id}>
       <div className="container-x">
@@ -38,6 +40,18 @@ export function ProductSection({ id, kicker, title, viewAll, products }: Props) 
                       : t('現貨', 'In stock')}
                 </span>
                 <img src={p.image} alt={t(p.name.zh, p.name.en)} />
+                <button
+                  type="button"
+                  className="card-add"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    add(p.id)
+                    open()
+                  }}
+                  aria-label={t('加入購物袋', 'Add to bag')}
+                >
+                  +
+                </button>
               </div>
               <div className="name">{t(p.name.zh, p.name.en)}</div>
               <div className="meta">{t(p.meta.zh, p.meta.en)}</div>

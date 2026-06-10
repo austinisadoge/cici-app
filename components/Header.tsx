@@ -1,9 +1,11 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { useCart } from '@/lib/cart'
 
 export function Header() {
   const { lang, setLang, cur, setCur, t } = useI18n()
+  const { itemCount, toggle } = useCart()
   return (
     <header className="nav">
       <div className="container-x nav-in">
@@ -58,7 +60,15 @@ export function Header() {
             </span>
           </div>
           <span className="nav-action">{t('搜尋', 'SEARCH')}</span>
-          <span className="nav-action bag">{t('購物袋', 'BAG')}</span>
+          <button
+            type="button"
+            className="nav-action bag"
+            onClick={toggle}
+            aria-label={t('開啟購物袋', 'Open bag')}
+          >
+            {t('購物袋', 'BAG')}
+            {itemCount > 0 && <b className="bag-badge">{itemCount}</b>}
+          </button>
         </div>
       </div>
     </header>
