@@ -1,0 +1,126 @@
+import { Resend } from 'resend'
+
+let _resend: Resend | null = null
+function getResend(): Resend | null {
+  if (_resend) return _resend
+  const key = process.env.RESEND_API_KEY
+  if (!key) {
+    console.warn('[email] RESEND_API_KEY missing — emails will not be sent')
+    return null
+  }
+  _resend = new Resend(key)
+  return _resend
+}
+
+const FROM = process.env.RESEND_FROM || 'CiCi <onboarding@resend.dev>'
+
+export type OrderEmailData = {
+  to: string
+  customerName: string
+  orderNumber: string
+  language: 'zh' | 'en'
+  currency: 'TWD' | 'MYR'
+  items: { name: string; quantity: number; unitPrice: number }[]
+  subtotal: number
+  shippingFee: number
+  total: number
+  paymentMethod: 'tng' | 'bank_transfer'
+  paymentInstructions?: string
+  trackingNo?: string
+}
+
+async function send(to: string, subject: string, html: string) {
+  const r = getResend()
+  if (!r) return
+  try {
+    await r.emails.send({ from: FROM, to, subject, html })
+  } catch (e) {
+    console.error('[email] send failed:', e)
+  }
+}
+
+export async function sendOrderConfirmation(d: OrderEmailData) {
+  const subj = d.language === 'zh'
+    ? `CiCi 訂單確認 #${d.orderNumber}`
+    : `CiCi Order Confirmation #${d.orderNumber}`
+  await send(d.to, subj, renderConfirm(d))
+}
+
+export async function sendPaymentConfirmed(d: OrderEmailData) {
+  const subj = d.language === 'zh'
+    ? `CiCi 已收到您的款項 #${d.orderNumber}`
+    : `CiCi Payment received #${d.orderNumber}`
+  await send(d.to, subj, renderPaid(d))
+}
+
+export async function sendShippingNotification(d: OrderEmailData) {
+  const subj = d.language === 'zh'
+    ? `CiCi 您的包裹已寄出 #${d.orderNumber}`
+    : `CiCi Your order has shipped #${d.orderNumber}`
+  await send(d.to, subj, renderShipped(d))
+}
+
+function sym(c: 'TWD' | 'MYR') { return c === 'MYR' ? 'RM' : 'NT$' }
+
+function wrap(body: string) {
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAFA;margin:0;padding:40px 20px;color:#171717;">
+<div style="max-width:560px;margin:0 auto;background:#fff;padding:48px 32px;border:1px solid #E5E5E5;">
+<div style="text-align:center;margin-bottom:32px;">
+<h1 style="font-family:Georgia,serif;font-weight:400;font-size:32px;letter-spacing:.16em;margin:0;">CiCi</h1>
+<div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#737373;margin-top:8px;">Handwoven · Taiwan</div>
+</div>
+${body}
+<div style="margin-top:40px;padding-top:24px;border-top:1px solid #E5E5E5;text-align:center;font-size:11px;letter-spacing:.1em;color:#737373;">© 2026 CiCi · Handwoven in Taiwan</div>
+</div></body></html>`
+}
+
+function itemsTable(d: OrderEmailData) {
+  const s = sym(d.currency)
+  return `<table width="100%" style="border-collapse:collapse;margin:20px 0;font-size:13px;">
+${d.items.map(it => `<tr><td style="padding:8px 0;border-bottom:1px solid #F5F5F5;">${it.name} × ${it.quantity}</td><td align="right" style="padding:8px 0;border-bottom:1px solid #F5F5F5;">${s} ${(it.unitPrice * it.quantity).toLocaleString()}</td></tr>`).join('')}
+</table>
+<table width="100%" style="border-collapse:collapse;font-size:13px;">
+<tr><td style="padding:4px 0;">${d.language === 'zh' ? '小計' : 'Subtotal'}</td><td align="right">${s} ${d.subtotal.toLocaleString()}</td></tr>
+<tr><td style="padding:4px 0;">${d.language === 'zh' ? '運費' : 'Shipping'}</td><td align="right">${d.shippingFee === 0 ? (d.language === 'zh' ? '免運' : 'Free') : `${s} ${d.shippingFee}`}</td></tr>
+<tr><td style="padding:12px 0 4px;border-top:1px solid #E5E5E5;font-size:15px;"><strong>${d.language === 'zh' ? '總計' : 'Total'}</strong></td><td align="right" style="padding:12px 0 4px;border-top:1px solid #E5E5E5;font-size:18px;"><strong>${s} ${d.total.toLocaleString()}</strong></td></tr>
+</table>`
+}
+
+function renderConfirm(d: OrderEmailData) {
+  const zh = d.language === 'zh'
+  return wrap(`
+<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${zh ? `${d.customerName} 您好` : `Hello, ${d.customerName}`}</h2>
+<p style="color:#737373;font-size:14px;line-height:1.7;">${zh ? '感謝您的訂購。您的訂單已成立，等待付款確認。' : "Thank you for your order. We've received it and are waiting for your payment."}</p>
+<div style="background:#FAF7F2;padding:16px 20px;margin:24px 0;text-align:center;letter-spacing:.1em;">${zh ? '訂單編號' : 'Order'} <strong>${d.orderNumber}</strong></div>
+${itemsTable(d)}
+<div style="background:#171717;color:#fff;padding:24px;margin:32px 0;">
+<div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:12px;">${zh ? '付款方式' : 'Payment'}</div>
+<div style="font-size:16px;margin-bottom:8px;">${d.paymentMethod === 'tng' ? 'TNG eWallet' : (zh ? '銀行匯款' : 'Bank Transfer')}</div>
+<div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.7;white-space:pre-line;">${d.paymentInstructions || ''}</div>
+</div>
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '收到您的款項後，我們會立即安排出貨。' : "Once we verify your payment, we'll prepare your order for shipping."}</p>`)
+}
+
+function renderPaid(d: OrderEmailData) {
+  const zh = d.language === 'zh'
+  return wrap(`
+<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${zh ? `${d.customerName} 您好` : `Hello, ${d.customerName}`}</h2>
+<p style="color:#737373;font-size:14px;line-height:1.7;">${zh ? '我們已確認收到您的付款，正在準備您的作品。' : "We've received your payment and are preparing your piece."}</p>
+<div style="background:#FAF7F2;padding:16px 20px;margin:24px 0;text-align:center;letter-spacing:.1em;">${zh ? '訂單編號' : 'Order'} <strong>${d.orderNumber}</strong></div>
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '手工編織需要時間，預計 7～14 天內為您寄出。出貨後您會收到追蹤通知。' : 'Handweaving takes time. We expect to ship within 7–14 days. You\\'ll receive a tracking notification once shipped.'}</p>
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '感謝您支持手作。' : 'Thank you for supporting handmade craft.'}</p>`)
+}
+
+function renderShipped(d: OrderEmailData) {
+  const zh = d.language === 'zh'
+  return wrap(`
+<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${zh ? `${d.customerName} 您好` : `Hello, ${d.customerName}`}</h2>
+<p style="color:#737373;font-size:14px;line-height:1.7;">${zh ? '您的包裹已寄出，期待它早日抵達您身邊。' : 'Your order is on the way.'}</p>
+<div style="background:#FAF7F2;padding:16px 20px;margin:24px 0;text-align:center;letter-spacing:.1em;">${zh ? '訂單編號' : 'Order'} <strong>${d.orderNumber}</strong></div>
+${d.trackingNo ? `<div style="background:#171717;color:#fff;padding:20px;margin:24px 0;text-align:center;">
+<div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px;">${zh ? '物流單號' : 'Tracking'}</div>
+<div style="font-size:18px;font-family:'SF Mono',monospace;letter-spacing:.05em;">${d.trackingNo}</div>
+</div>` : ''}
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '感謝您讓 CiCi 進入您的生活。' : 'Thank you for letting CiCi into your life.'}</p>`)
+}

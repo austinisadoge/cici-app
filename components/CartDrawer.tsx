@@ -132,9 +132,9 @@ export function CartDrawer() {
                 {symbol} {total.toLocaleString()}
               </span>
             </div>
-            <button type="button" className="btn drawer-checkout">
+            <a href="/checkout" className="btn drawer-checkout" onClick={close}>
               {t('前往結帳 →', 'CHECKOUT →')}
-            </button>
+            </a>
           </div>
         )}
       </aside>
