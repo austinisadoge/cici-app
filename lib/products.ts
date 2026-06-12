@@ -86,6 +86,30 @@ export function seriesById(id: SeriesId): Series {
   return SERIES.find(s => s.id === id)!
 }
 
+// 每個系列下的分類（品牌架構：足鍊只出現在祝福小物、生物力量）
+const BASE_CATEGORIES: CategoryId[] = [
+  'earrings', 'braided-bracelets', 'chain-bracelets', 'beaded-bracelets',
+  'necklaces', 'hanging-charms', 'decor', 'little-things',
+  'paintings', 'diamond-paintings', 'cross-stitch', 'embroidery',
+]
+const WITH_ANKLETS: CategoryId[] = [
+  'earrings', 'braided-bracelets', 'chain-bracelets', 'beaded-bracelets',
+  'necklaces', 'anklets', 'hanging-charms', 'decor', 'little-things',
+  'paintings', 'diamond-paintings', 'cross-stitch', 'embroidery',
+]
+
+export const SERIES_CATEGORIES: Record<SeriesId, CategoryId[]> = {
+  'living-scenery': BASE_CATEGORIES,
+  'stone-stories': BASE_CATEGORIES,
+  'daily-glimmers': BASE_CATEGORIES,
+  'little-blessings': WITH_ANKLETS,
+  'living-force': WITH_ANKLETS,
+}
+
+export function categoryById(id: CategoryId) {
+  return CATEGORIES.find(c => c.id === id)!
+}
+
 export type Product = {
   id: string
   slug: string

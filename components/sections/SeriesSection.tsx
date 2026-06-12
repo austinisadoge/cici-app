@@ -14,12 +14,12 @@ export function SeriesSection() {
         </div>
         <div className="series-grid">
           {SERIES.map(s => (
-            <div key={s.id} className="series-card">
+            <a key={s.id} href={`/shop?series=${s.id}`} className="series-card">
               <div className="series-no serif">{s.no}</div>
               <h3 className="serif">{t(s.name.zh, s.name.en)}</h3>
               <div className="series-tagline">{t(s.tagline.zh, s.tagline.en)}</div>
               <p>{t(s.description.zh, s.description.en)}</p>
-            </div>
+            </a>
           ))}
         </div>
       </div>

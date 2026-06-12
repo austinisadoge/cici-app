@@ -35,6 +35,7 @@ export default async function HomePage() {
         kicker={{ zh: '系列．礦石物語', en: 'Series · Stone Stories' }}
         title={{ zh: '手繩精選', en: 'Braided Bracelets' }}
         viewAll={{ zh: '查看全部手繩 →', en: 'View all bracelets →' }}
+        viewAllHref="/shop?category=braided-bracelets"
         products={bracelets}
       />
       <LargeHero />
@@ -43,6 +44,7 @@ export default async function HomePage() {
         kicker={{ zh: '精選．耳飾', en: 'Featured · Earrings' }}
         title={{ zh: '編織圓圈．流蘇', en: 'Woven Hoops & Tassels' }}
         viewAll={{ zh: '查看全部耳飾 →', en: 'View all earrings →' }}
+        viewAllHref="/shop?category=earrings"
         products={earrings}
       />
       {others.length > 0 && (
@@ -51,6 +53,7 @@ export default async function HomePage() {
           kicker={{ zh: '更多作品', en: 'More Pieces' }}
           title={{ zh: '項鍊．掛飾．小物', en: 'Necklaces, Charms & More' }}
           viewAll={{ zh: '查看全部 →', en: 'View all →' }}
+          viewAllHref="/shop"
           products={others}
         />
       )}

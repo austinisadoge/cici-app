@@ -500,6 +500,72 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .music-tip { display: none; }
 }
 
+/* === BURGER + MEGA MENU === */
+.nav-burger {
+  background: none; border: none; padding: 4px;
+  cursor: pointer; color: var(--ink);
+  display: flex; align-items: center;
+}
+.nav-burger svg { width: 18px; height: 14px; display: block; }
+.nav-burger:hover { opacity: .6; }
+.mega-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.25);
+  z-index: 60; animation: drawerFade .2s ease;
+}
+.mega {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: #fff; z-index: 70;
+  transform: translateY(-102%);
+  transition: transform .4s var(--tx);
+  max-height: 100vh; overflow-y: auto;
+  border-bottom: 1px solid var(--line);
+}
+.mega.open { transform: translateY(0); }
+.mega-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 40px 8px;
+}
+.mega-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 32px; padding: 24px 40px 8px;
+}
+.mega-series { display: block; margin-bottom: 16px; }
+.mega-series:hover .mega-name { text-decoration: underline; text-underline-offset: 4px; }
+.mega-no {
+  display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;
+}
+.mega-name {
+  display: block; font-size: 22px; font-weight: 400;
+  letter-spacing: .04em; margin-bottom: 6px;
+}
+.mega-tag { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; }
+.mega-cats { list-style: none; }
+.mega-cats li { margin-bottom: 8px; }
+.mega-cats a {
+  font-size: 13px; color: var(--muted); transition: color .15s var(--tx);
+}
+.mega-cats a:hover { color: var(--ink); }
+.mega-foot {
+  padding: 20px 40px 32px; border-top: 1px solid var(--line);
+  margin-top: 24px; text-align: center;
+}
+.grid-empty {
+  text-align: center; color: var(--muted); font-size: 14px;
+  padding: 80px 0 40px; letter-spacing: .04em;
+}
+@media (max-width: 960px) {
+  .mega-grid { grid-template-columns: 1fr 1fr; padding: 16px 24px 8px; }
+  .mega-head { padding: 20px 24px 0; }
+  .mega-foot { padding: 16px 24px 28px; }
+}
+@media (max-width: 600px) {
+  .mega-grid { grid-template-columns: 1fr; gap: 24px; }
+  .mega-cats { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+  .mega-cats li { margin-bottom: 0; }
+  .mega-series { margin-bottom: 10px; }
+  .mega-name { font-size: 19px; }
+}
+
 /* === CART DRAWER === */
 .drawer-backdrop {
   position: fixed; inset: 0;

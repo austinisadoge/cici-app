@@ -1,11 +1,14 @@
 'use client'
 
+import { useState } from 'react'
 import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
+import { MegaMenu } from './MegaMenu'
 
 export function Header() {
   const { lang, setLang, cur, setCur, t } = useI18n()
   const { itemCount, toggle } = useCart()
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <header className="nav">
       <div className="container-x nav-in">
@@ -72,8 +75,22 @@ export function Header() {
             {t('購物袋', 'BAG')}
             {itemCount > 0 && <b className="bag-badge">{itemCount}</b>}
           </button>
+          <button
+            type="button"
+            className="nav-burger"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={t('開啟選單', 'Open menu')}
+            aria-expanded={menuOpen}
+          >
+            <svg viewBox="0 0 18 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+              <line x1="1" y1="1" x2="17" y2="1" />
+              <line x1="1" y1="7" x2="17" y2="7" />
+              <line x1="1" y1="13" x2="17" y2="13" />
+            </svg>
+          </button>
         </div>
       </div>
+      <MegaMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   )
 }

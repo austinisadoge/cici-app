@@ -11,11 +11,12 @@ interface Props {
   id: string
   kicker: Lex
   title: Lex
-  viewAll: Lex
+  viewAll?: Lex
+  viewAllHref?: string
   products: Product[]
 }
 
-export function ProductSection({ id, kicker, title, viewAll, products }: Props) {
+export function ProductSection({ id, kicker, title, viewAll, viewAllHref, products }: Props) {
   const { t } = useI18n()
   const { add, open } = useCart()
   return (
@@ -26,8 +27,20 @@ export function ProductSection({ id, kicker, title, viewAll, products }: Props) 
             <span className="kicker">{t(kicker.zh, kicker.en)}</span>
             <h2 className="serif">{t(title.zh, title.en)}</h2>
           </div>
-          <a className="view-all">{t(viewAll.zh, viewAll.en)}</a>
+          {viewAll && (
+            <a className="view-all" href={viewAllHref ?? '/shop'}>
+              {t(viewAll.zh, viewAll.en)}
+            </a>
+          )}
         </div>
+        {products.length === 0 && (
+          <div className="grid-empty">
+            {t(
+              '這個分類目前還沒有作品，匠人正在趕工，敬請期待。',
+              'No pieces here yet. New works are on the way.'
+            )}
+          </div>
+        )}
         <div className="grid-3">
           {products.map(p => (
             <div key={p.id} className="card">
