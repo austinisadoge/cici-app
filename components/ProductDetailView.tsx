@@ -19,6 +19,16 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
   const desc = lang === 'zh' ? product.description.zh : product.description.en
   const soldOut = product.stock === 'sold-out'
 
+  const specRows: { label: { zh: string; en: string }; val: { zh: string; en: string } }[] = [
+    { label: { zh: '規格', en: 'Type' }, val: product.specs.spec },
+    { label: { zh: '顏色', en: 'Colour' }, val: product.specs.color },
+    { label: { zh: '適合', en: 'For' }, val: product.specs.occasion },
+    { label: { zh: '工法', en: 'Technique' }, val: product.specs.technique },
+    { label: { zh: '尺寸', en: 'Size' }, val: product.specs.size },
+    { label: { zh: '材質', en: 'Material' }, val: product.specs.material },
+  ].filter(r => (lang === 'zh' ? r.val.zh : r.val.en))
+  const care = lang === 'zh' ? product.care.zh : product.care.en
+
   const cartProduct: Product = {
     id: product.id,
     slug: product.slug,
@@ -117,13 +127,35 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
               </div>
             )}
 
+            {specRows.length > 0 && (
+              <table className="pd-specs">
+                <tbody>
+                  {specRows.map((r, i) => (
+                    <tr key={i}>
+                      <th>{t(r.label.zh, r.label.en)}</th>
+                      <td>{t(r.val.zh, r.val.en)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {care && (
+              <div className="pd-care">
+                <b>{t('溫馨提示', 'A gentle note')}</b>
+                {care.split('\n').filter(Boolean).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            )}
+
             <div className="pd-notes">
               <div>
                 <b>{t('手作說明', 'About the craft')}</b>
                 <span>
                   {t(
-                    '每一件都是手工編成，紋理與色澤會有細微差異，這是手作的印記。',
-                    'Each piece is woven by hand. Small variations in texture and colour are the mark of the craft.'
+                    '每件作品皆為手工編織而成，尾端處以燒粘方式固定繩結使結構牢固；細微收尾痕跡是手作工藝特徵，也是雙手完成作品時留下的溫度印記。',
+                    'Every piece is woven by hand; knot ends are heat-sealed for strength. Small finishing marks are the signature of handcraft, the warmth left by the maker’s hands.'
                   )}
                 </span>
               </div>

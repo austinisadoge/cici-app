@@ -14,6 +14,20 @@ export interface ProductFormData {
   meta_en: string
   description_zh: string
   description_en: string
+  spec_zh: string
+  spec_en: string
+  color_zh: string
+  color_en: string
+  occasion_zh: string
+  occasion_en: string
+  technique_zh: string
+  technique_en: string
+  size_zh: string
+  size_en: string
+  material_zh: string
+  material_en: string
+  care_zh: string
+  care_en: string
   price_twd: number | ''
   stock_status: string
   is_new: boolean
@@ -33,6 +47,13 @@ const EMPTY: ProductFormData = {
   meta_en: '',
   description_zh: '',
   description_en: '',
+  spec_zh: '', spec_en: '',
+  color_zh: '', color_en: '',
+  occasion_zh: '', occasion_en: '',
+  technique_zh: '', technique_en: '',
+  size_zh: '', size_en: '',
+  material_zh: '', material_en: '',
+  care_zh: '', care_en: '',
   price_twd: '',
   stock_status: 'in-stock',
   is_new: true,
@@ -284,6 +305,44 @@ export function ProductForm({
             value={form.sort_order}
             onChange={e => set('sort_order', e.target.value === '' ? '' : Number(e.target.value))}
           />
+        </label>
+      </details>
+
+      {/* ── 商品細節（規格表，選填）── */}
+      <details className="admin-form-section admin-details">
+        <summary>⑤ 商品細節｜規格表（選填，顯示在商品頁）</summary>
+        <p className="admin-hint" style={{ marginBottom: 14 }}>中文填了就會顯示；英文留空不影響中文版。</p>
+        <div className="admin-grid2">
+          <label>規格<input value={form.spec_zh} onChange={e => set('spec_zh', e.target.value)} placeholder="例：寬版手繩" /></label>
+          <label>規格 EN<input value={form.spec_en} onChange={e => set('spec_en', e.target.value)} placeholder="e.g. Wide bracelet" /></label>
+        </div>
+        <div className="admin-grid2">
+          <label>顏色<input value={form.color_zh} onChange={e => set('color_zh', e.target.value)} placeholder="例：多色彩線" /></label>
+          <label>顏色 EN<input value={form.color_en} onChange={e => set('color_en', e.target.value)} /></label>
+        </div>
+        <div className="admin-grid2">
+          <label>適合<input value={form.occasion_zh} onChange={e => set('occasion_zh', e.target.value)} placeholder="例：日常搭配" /></label>
+          <label>適合 EN<input value={form.occasion_en} onChange={e => set('occasion_en', e.target.value)} /></label>
+        </div>
+        <div className="admin-grid2">
+          <label>工法<input value={form.technique_zh} onChange={e => set('technique_zh', e.target.value)} placeholder="例：四線斜卷結編織" /></label>
+          <label>工法 EN<input value={form.technique_en} onChange={e => set('technique_en', e.target.value)} /></label>
+        </div>
+        <div className="admin-grid2">
+          <label>尺寸<input value={form.size_zh} onChange={e => set('size_zh', e.target.value)} placeholder="例：手圍16公分＋4公分延長" /></label>
+          <label>尺寸 EN<input value={form.size_en} onChange={e => set('size_en', e.target.value)} /></label>
+        </div>
+        <div className="admin-grid2">
+          <label>材質<input value={form.material_zh} onChange={e => set('material_zh', e.target.value)} placeholder="例：磷藍石、珍珠、合金尾扣" /></label>
+          <label>材質 EN<input value={form.material_en} onChange={e => set('material_en', e.target.value)} /></label>
+        </div>
+        <label>
+          溫馨提示（這件專屬的提醒，通用的手作說明系統會自動補）
+          <textarea rows={3} value={form.care_zh} onChange={e => set('care_zh', e.target.value)} placeholder="例：水晶魔盒內部礦石皆天然形成，每顆獨一無二…" />
+        </label>
+        <label>
+          溫馨提示 EN
+          <textarea rows={3} value={form.care_en} onChange={e => set('care_en', e.target.value)} />
         </label>
       </details>
 

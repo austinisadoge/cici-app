@@ -12,6 +12,13 @@ export const PRODUCT_FIELDS = [
   'name_zh', 'name_en',
   'meta_zh', 'meta_en',
   'description_zh', 'description_en',
+  'spec_zh', 'spec_en',
+  'color_zh', 'color_en',
+  'occasion_zh', 'occasion_en',
+  'technique_zh', 'technique_en',
+  'size_zh', 'size_en',
+  'material_zh', 'material_en',
+  'care_zh', 'care_en',
   'price_twd',
   'stock_status', 'is_new', 'is_active', 'sort_order',
 ] as const

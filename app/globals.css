@@ -678,6 +678,31 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
 .pd-add { width: 100%; justify-content: center; text-align: center; }
 .pd-desc { margin-top: 32px; }
 .pd-desc p { font-size: 14.5px; color: var(--muted); line-height: 1.9; margin-bottom: 12px; }
+.pd-specs {
+  width: 100%; border-collapse: collapse; margin-top: 32px;
+  font-size: 13.5px;
+}
+.pd-specs th, .pd-specs td {
+  text-align: left; vertical-align: top; padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.pd-specs th {
+  width: 84px; font-weight: 400; color: var(--muted);
+  letter-spacing: .1em; white-space: nowrap;
+}
+.pd-specs td { color: var(--ink); line-height: 1.7; padding-left: 16px; }
+.pd-care {
+  margin-top: 32px; background: var(--warm); border-radius: 12px;
+  padding: 20px 22px;
+}
+.pd-care b {
+  display: block; font-size: 12px; letter-spacing: .12em;
+  color: var(--ink); margin-bottom: 10px;
+}
+.pd-care p {
+  font-size: 13px; color: var(--muted); line-height: 1.85; margin-bottom: 8px;
+}
+.pd-care p:last-child { margin-bottom: 0; }
 .pd-notes { margin-top: 36px; border-top: 1px solid var(--line); }
 .pd-notes > div {
   display: grid; grid-template-columns: 110px 1fr; gap: 14px;
