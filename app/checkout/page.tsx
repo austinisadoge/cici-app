@@ -133,8 +133,8 @@ export default function CheckoutPage() {
                 <input required placeholder={t('收件人姓名', 'Recipient name')} value={form.customer_name} onChange={handle('customer_name')} />
               </label>
               <label className="field">
-                <span className="field-label">{t('電話', 'Phone')}</span>
-                <input placeholder={t('方便聯繫的號碼', 'A number we can reach you at')} value={form.customer_phone} onChange={handle('customer_phone')} />
+                <span className="field-label">{t('電話 *', 'Phone *')}</span>
+                <input required type="tel" placeholder={t('超商取貨通知用', 'For pickup notifications')} value={form.customer_phone} onChange={handle('customer_phone')} />
               </label>
             </div>
 

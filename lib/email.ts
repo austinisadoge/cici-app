@@ -157,6 +157,10 @@ ${itemsTable(d)}
 <div style="font-size:16px;margin-bottom:8px;">${d.paymentMethod === 'tng' ? 'TNG eWallet' : (zh ? '銀行匯款' : 'Bank Transfer')}</div>
 <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.7;white-space:pre-line;">${d.paymentInstructions || ''}</div>
 </div>
+<div style="text-align:center;margin:28px 0;">
+<a href="https://cicidailystudio.com/order/${d.orderNumber}?p=${d.paymentMethod}" style="display:inline-block;background:#171717;color:#ffffff;padding:15px 34px;font-size:13px;letter-spacing:.16em;text-decoration:none;">${zh ? '回填付款 ／ 查看訂單 →' : 'REPORT PAYMENT / VIEW ORDER →'}</a>
+</div>
+<p style="color:#737373;font-size:12px;line-height:1.7;text-align:center;">${zh ? '匯款／付款後，點上方按鈕回填末五碼即可。請保留這封信，隨時可以回來查看訂單。' : 'After paying, click the button above to report your last 5 digits. Keep this email to return to your order anytime.'}</p>
 <p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '收到您的款項後，我們會立即安排出貨。' : "Once we verify your payment, we'll prepare your order for shipping."}</p>`)
 }
 

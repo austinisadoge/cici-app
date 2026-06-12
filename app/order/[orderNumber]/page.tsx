@@ -48,8 +48,8 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
         <div className="order-number">{orderNumber}</div>
         <div className="order-save-tip">
           {t(
-            '請截圖保存此頁。確認信也已寄到你的信箱（如未收到請查看垃圾信匣）。',
-            'Please screenshot this page. A confirmation email has also been sent (check your spam folder if missing).'
+            '怕這頁跳掉？別擔心，確認信已寄到你的信箱，裡面有按鈕可隨時回到這一頁回填付款（如未收到請查看垃圾信匣）。',
+            'Worried about losing this page? A confirmation email is in your inbox with a button to return here and report payment anytime (check spam if missing).'
           )}
         </div>
 
@@ -93,17 +93,30 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
         )}
 
         <form onSubmit={onSubmit} className="report-form">
-          <h2 className="form-title">{t('回填付款', 'Report Payment')}</h2>
+          <h2 className="form-title">{t('我已付款，回報帳號末五碼', 'Report your payment')}</h2>
+          <p className="report-help">
+            {paymentMethod === 'bank_transfer'
+              ? t(
+                  '匯款完成後，填入「您轉出帳號」的後五碼，我們會用它來核對這筆款項。',
+                  'After your transfer, enter the last 5 digits of the account you paid FROM. We use it to match your payment.'
+                )
+              : t(
+                  '付款完成後，填入「您 TNG 交易序號」的後五碼，或在備註附上付款截圖連結。',
+                  'After paying, enter the last 5 digits of your TNG transaction number, or paste a screenshot link in the notes.'
+                )}
+          </p>
           <input
             type="email"
-            placeholder={t('下單時的 Email（驗證用）', 'Email used at checkout (for verification)')}
+            inputMode="email"
+            placeholder={t('下單時的 Email（驗證身分用）', 'Email used at checkout (for verification)')}
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
           />
           <input
             type="text"
-            placeholder={t('轉帳末五碼', 'Last 5 digits')}
+            inputMode="numeric"
+            placeholder={t('帳號 / 交易序號 後五碼', 'Last 5 digits of account / transaction')}
             value={last5}
             onChange={e => setLast5(e.target.value)}
             maxLength={5}
