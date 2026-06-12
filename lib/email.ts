@@ -33,7 +33,13 @@ async function send(to: string, subject: string, html: string) {
   const r = getResend()
   if (!r) return
   try {
-    await r.emails.send({ from: FROM, to, subject, html })
+    // Resend SDK 出錯不會 throw，錯誤放在回傳值的 error 欄位
+    const { data, error } = await r.emails.send({ from: FROM, to, subject, html })
+    if (error) {
+      console.error('[email] send rejected:', JSON.stringify(error))
+    } else {
+      console.log('[email] sent:', data?.id, '→', to)
+    }
   } catch (e) {
     console.error('[email] send failed:', e)
   }
