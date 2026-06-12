@@ -29,9 +29,9 @@ export function FiftyFiftyHero() {
           )}
         </p>
         <div className="btn-row">
-          <button className="btn">
+          <a className="btn" href="/shop">
             {t('逛逛全系列 →', 'SHOP THE COLLECTION →')}
-          </button>
+          </a>
           <a className="btn-line" href="#about">
             {t('品牌故事', 'OUR STORY')}
           </a>

@@ -21,7 +21,7 @@ export function LargeHero() {
             )}
           </h2>
         </div>
-        <button className="btn">{t('探索 →', 'DISCOVER →')}</button>
+        <a className="btn" href="/shop?category=earrings">{t('探索 →', 'DISCOVER →')}</a>
       </div>
     </section>
   )
