@@ -6,6 +6,7 @@ import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
 import { calcShipping } from '@/lib/shipping'
 import { Header } from '@/components/Header'
+import { TW_DISTRICTS, TW_CITIES } from '@/lib/tw-districts'
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -16,6 +17,8 @@ export default function CheckoutPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [storeType, setStoreType] = useState<'seven' | 'family'>('seven')
+  const [city, setCity] = useState('')
+  const [district, setDistrict] = useState('')
   const [form, setForm] = useState({
     customer_name: '',
     customer_email: '',
@@ -57,15 +60,19 @@ export default function CheckoutPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
-    // 台灣超商取貨：把店別+門市組成地址字串送出
+    // 台灣超商取貨：把縣市+區+店別+門市組成地址字串送出
     let shipping_address = form.shipping_address
     if (country === 'TW') {
+      if (!city || !district) {
+        setError(t('請選擇縣市與區', 'Please select city and district'))
+        return
+      }
       if (!form.store_name.trim()) {
         setError(t('請填取貨門市名稱或店號', 'Please enter the pickup store name or number'))
         return
       }
       const chain = storeType === 'seven' ? '7-ELEVEN' : '全家 FamilyMart'
-      shipping_address = `${chain}　超商店到店｜門市：${form.store_name.trim()}`
+      shipping_address = `${city}${district}　${chain}　門市：${form.store_name.trim()}`
     }
     setSubmitting(true)
     try {
@@ -142,14 +149,30 @@ export default function CheckoutPage() {
                     {t('全家 FamilyMart', 'FamilyMart')}
                   </button>
                 </div>
+                <div className="store-grid">
+                  <label className="field">
+                    <span className="field-label">{t('縣市 *', 'City *')}</span>
+                    <select required value={city} onChange={e => { setCity(e.target.value); setDistrict('') }}>
+                      <option value="">{t('請選擇', 'Select')}</option>
+                      {TW_CITIES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                  </label>
+                  <label className="field">
+                    <span className="field-label">{t('區 *', 'District *')}</span>
+                    <select required value={district} onChange={e => setDistrict(e.target.value)} disabled={!city}>
+                      <option value="">{city ? t('請選擇', 'Select') : t('先選縣市', 'City first')}</option>
+                      {(TW_DISTRICTS[city] || []).map(d => <option key={d} value={d}>{d}</option>)}
+                    </select>
+                  </label>
+                </div>
                 <label className="field">
                   <span className="field-label">{t('取貨門市名稱 / 店號 *', 'Pickup store name / number *')}</span>
                   <input required placeholder={t('例：信義門市 或 店號 123456', 'e.g. Xinyi Store or No. 123456')} value={form.store_name} onChange={handle('store_name')} />
                 </label>
                 <p className="store-hint">
                   {t(
-                    '可在 7-11 或全家 App / 官網查門市店號。我們將寄送至此門市，到貨後超商會通知你取件。',
-                    'Find the store number in the 7-11 or FamilyMart app/site. We ship to this store; you’ll be notified when it arrives.'
+                    '選好縣市與區後，填上門市名稱或店號（可在 7-11 / 全家 App 查）。到貨後超商會通知你取件。',
+                    'After choosing city and district, enter the store name or number (find it in the 7-11 / FamilyMart app). You’ll be notified when it arrives.'
                   )}
                 </p>
               </div>
