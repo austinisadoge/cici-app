@@ -9,6 +9,7 @@ interface Order {
   customer_name: string
   customer_email: string
   shipping_country: string
+  shipping_address: string | null
   payment_method: string
   payment_status: string
   shipping_status: string
@@ -100,7 +101,18 @@ export default function AdminOrders() {
                   <div>{o.customer_name}</div>
                   <small>{o.customer_email}</small>
                 </td>
-                <td>{o.shipping_country}</td>
+                <td>
+                  {o.shipping_country === 'TW' && /門市|超商/.test(o.shipping_address || '') ? (
+                    <span className="ship-badge store" title={o.shipping_address || ''}>🏪 超商</span>
+                  ) : o.shipping_country === 'MY' ? (
+                    <span className="ship-badge my" title={o.shipping_address || ''}>🇲🇾 馬國</span>
+                  ) : (
+                    <span className="ship-badge" title={o.shipping_address || ''}>🇹🇼 台灣</span>
+                  )}
+                  {o.shipping_address && (
+                    <small className="ship-addr">{o.shipping_address}</small>
+                  )}
+                </td>
                 <td>{o.payment_method === 'tng' ? 'TNG' : 'Bank'}</td>
                 <td className="mono">{o.payment_last5 || '—'}</td>
                 <td><span className={`status status-${o.payment_status}`}>{o.payment_status}</span></td>

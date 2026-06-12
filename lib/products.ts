@@ -60,7 +60,7 @@ export const SERIES: Series[] = [
   {
     id: 'living-force',
     no: '05',
-    name: { zh: '生物力量', en: 'Living Force' },
+    name: { zh: '生命力量', en: 'Living Force' },
     tagline: { zh: '收藏地球生物的故事', en: 'Stories of the living earth' },
     description: { zh: '注入動植物生命力的作品', en: 'Pieces alive with flora and fauna' },
   },

@@ -598,6 +598,19 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   color: var(--muted); letter-spacing: .02em; margin-top: 6px; font-weight: 300;
 }
 
+/* === ADMIN ORDER SHIP BADGE === */
+.ship-badge {
+  display: inline-block; font-size: 12px; font-weight: 500;
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+  background: var(--soft); color: var(--ink);
+}
+.ship-badge.store { background: #1a3a2e; color: #fff; }
+.ship-badge.my { background: #2e2a3a; color: #fff; }
+.ship-addr {
+  display: block; font-size: 11px; color: var(--muted);
+  margin-top: 4px; max-width: 220px; line-height: 1.5;
+}
+
 /* === SHOPPING GUIDE === */
 .guide-wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; }
 .guide-wrap > h1 {

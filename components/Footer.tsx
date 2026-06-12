@@ -27,7 +27,7 @@ export function Footer() {
               <li>{t('礦石物語', 'Stone Stories')}</li>
               <li>{t('日常拾光', 'Daily Glimmers')}</li>
               <li>{t('祝福小物', 'Little Blessings')}</li>
-              <li>{t('生物力量', 'Living Force')}</li>
+              <li>{t('生命力量', 'Living Force')}</li>
             </ul>
           </div>
           <div>
