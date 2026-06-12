@@ -91,7 +91,18 @@ export async function POST(req: Request) {
 
       if (error) throw error
       orderId = order.id
-      const itemsRows = orderItems.map(i => ({ ...i, order_id: orderId }))
+      // lib/products 的 id 是 slug（文字），order_items.product_id 是 uuid，先查映射
+      const slugs = orderItems.map(i => i.product_id)
+      const { data: dbProducts } = await sb
+        .from('products')
+        .select('id, slug')
+        .in('slug', slugs)
+      const idBySlug = new Map((dbProducts ?? []).map(r => [r.slug, r.id]))
+      const itemsRows = orderItems.map(i => ({
+        ...i,
+        product_id: idBySlug.get(i.product_id) ?? null,
+        order_id: orderId,
+      }))
       const { error: ie } = await sb.from('order_items').insert(itemsRows)
       if (ie) throw ie
     } catch (e) {
