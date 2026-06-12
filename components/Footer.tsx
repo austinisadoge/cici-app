@@ -33,10 +33,10 @@ export function Footer() {
           <div>
             <h4>{t('客服', 'Help')}</h4>
             <ul>
-              <li><a href="/#payment">{t('付款方式', 'Payment')}</a></li>
-              <li><a href="/#payment">{t('寄送說明', 'Shipping')}</a></li>
-              <li><a href="/returns">{t('退換貨', 'Returns')}</a></li>
-              <li><a href="/custom">{t('客製須知', 'Custom Order Guide')}</a></li>
+              <li><a href="/guide">{t('購物說明', 'Shopping Guide')}</a></li>
+              <li><a href="/guide#returns">{t('退換貨說明', 'Returns')}</a></li>
+              <li><a href="/custom">{t('客製訂製', 'Custom Orders')}</a></li>
+              <li><a href="/#payment">{t('付款與寄送', 'Payment & Shipping')}</a></li>
             </ul>
           </div>
           <div>

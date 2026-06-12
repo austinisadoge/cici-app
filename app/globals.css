@@ -589,6 +589,47 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   color: var(--muted); letter-spacing: .02em; margin-top: 6px; font-weight: 300;
 }
 
+/* === SHOPPING GUIDE === */
+.guide-wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; }
+.guide-wrap > h1 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 400; font-size: clamp(32px, 4.4vw, 48px); margin-bottom: 12px;
+}
+.guide-intro { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 56px; }
+.guide-sec { margin-bottom: 48px; scroll-margin-top: 96px; }
+.guide-sec h2 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 400; font-size: 22px; letter-spacing: .04em;
+  margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+}
+.guide-sec > p { font-size: 14.5px; color: var(--muted); line-height: 1.95; }
+.guide-ol { list-style: none; counter-reset: g; }
+.guide-ol > li {
+  counter-increment: g; position: relative;
+  padding-left: 30px; margin-bottom: 16px;
+  font-size: 14.5px; color: var(--muted); line-height: 1.9;
+}
+.guide-ol > li::before {
+  content: counter(g) '.'; position: absolute; left: 0; top: 0;
+  color: var(--ink); font-weight: 500;
+}
+.guide-ol-sub { list-style: none; counter-reset: gs; margin-top: 12px; }
+.guide-ol-sub > li {
+  counter-increment: gs; position: relative;
+  padding-left: 26px; margin-bottom: 12px;
+  font-size: 13.5px; line-height: 1.85;
+}
+.guide-ol-sub > li::before {
+  content: counter(gs, lower-alpha) '.'; position: absolute; left: 0; top: 0;
+  color: var(--brand-dk, #8C6242); font-weight: 500;
+}
+.guide-sec strong { color: var(--ink); }
+.guide-sec a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.guide-contact {
+  margin-top: 56px; padding: 20px 24px; background: var(--warm);
+  border-radius: 12px; font-size: 13.5px; color: var(--muted); line-height: 1.8;
+}
+
 /* === LEGAL PAGES === */
 .legal-wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 120px; }
 .legal-wrap h1 {

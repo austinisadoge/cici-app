@@ -110,10 +110,10 @@ ${row('參考連結', d.reference)}
   const ackHtml = wrap(zh
     ? `<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${d.name} 您好</h2>
 <p style="font-size:14px;line-height:1.8;">我們收到您的客製需求了。匠人會仔細看過您想要的色系與細節，<strong>1–2 個工作天內</strong>回信與您討論設計與報價。</p>
-<p style="font-size:14px;line-height:1.8;">每一件客製作品從討論到完成約需 7–14 天，謝謝您願意等待手作的時間。</p>`
+<p style="font-size:14px;line-height:1.8;">訂製作品自下單起約 3–7 個工作天內為您寄出，謝謝您願意等待手作的時間。</p>`
     : `<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">Hello, ${d.name}</h2>
 <p style="font-size:14px;line-height:1.8;">We have received your custom request. Our artisan will review your palette and details, and reply within <strong>1–2 business days</strong> to discuss the design and quote.</p>
-<p style="font-size:14px;line-height:1.8;">A custom piece takes about 7–14 days from conversation to completion. Thank you for giving handcraft its time.</p>`)
+<p style="font-size:14px;line-height:1.8;">Custom pieces ship within 3–7 business days of your order. Thank you for giving handcraft its time.</p>`)
   const ackSubj = zh ? 'CiCi 已收到您的客製需求' : 'CiCi has received your custom request'
   await send(d.email, ackSubj, ackHtml)
 }
@@ -166,7 +166,7 @@ function renderPaid(d: OrderEmailData) {
 <h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${zh ? `${d.customerName} 您好` : `Hello, ${d.customerName}`}</h2>
 <p style="color:#737373;font-size:14px;line-height:1.7;">${zh ? '我們已確認收到您的付款，正在準備您的作品。' : "We've received your payment and are preparing your piece."}</p>
 <div style="background:#FAF7F2;padding:16px 20px;margin:24px 0;text-align:center;letter-spacing:.1em;">${zh ? '訂單編號' : 'Order'} <strong>${d.orderNumber}</strong></div>
-<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '手工編織需要時間，預計 7～14 天內為您寄出。出貨後您會收到追蹤通知。' : "Handweaving takes time. We expect to ship within 7–14 days. You'll receive a tracking notification once shipped."}</p>
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '現貨 48 小時內、訂製 3～7 個工作天內為您寄出。出貨後您會收到追蹤通知。' : "In-stock pieces ship within 48 hours, custom within 3–7 business days. You'll receive a tracking notification once shipped."}</p>
 <p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '感謝您支持手作。' : 'Thank you for supporting handmade craft.'}</p>`)
 }
 

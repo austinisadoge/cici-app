@@ -52,8 +52,8 @@ export default function TermsPage() {
           h: { zh: '出貨時程', en: 'Shipping' },
           ps: [
             {
-              zh: '現貨於款項確認後 1–3 個工作天出貨；客製作品約 7–14 天。如遇不可抗力（天候、物流異常）將另行通知。',
-              en: 'In-stock pieces ship 1–3 business days after payment is verified; custom pieces in about 7–14 days. We will notify you of delays beyond our control.',
+              zh: '現貨於款項確認後 48 小時內出貨；訂製作品約 3–7 個工作天。台灣採超商店到店（7-11、全家），馬來西亞以台灣郵局寄送。如遇不可抗力（天候、物流異常）將另行通知。',
+              en: 'In-stock pieces ship within 48 hours after payment is verified; custom pieces in 3–7 business days. Taiwan uses convenience-store pickup (7-11, FamilyMart); Malaysia ships via the post office in Taiwan. We will notify you of delays beyond our control.',
             },
           ],
         },

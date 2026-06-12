@@ -52,8 +52,8 @@ export function PaymentShipping() {
             <b className="serif">{t('出貨時間', 'Lead time')}</b>
             <span>
               {t(
-                '現貨 1–3 天．客製 7–14 天',
-                'In stock 1–3 days · Made to order 7–14 days'
+                '現貨 48 小時．訂製 3–7 工作天',
+                'In stock 48 hrs · Custom 3–7 business days'
               )}
             </span>
           </div>

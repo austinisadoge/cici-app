@@ -175,7 +175,7 @@ export default function CustomPage() {
           <aside className="custom-aside">
             <div className="custom-step"><b className="serif">01</b><span>{t('送出需求，1–2 天內回覆討論', 'Send your idea, we reply in 1–2 days')}</span></div>
             <div className="custom-step"><b className="serif">02</b><span>{t('確認設計與報價，下單付款', 'Confirm design & quote, then order')}</span></div>
-            <div className="custom-step"><b className="serif">03</b><span>{t('匠人手工製作，7–14 天寄出', 'Handwoven in 7–14 days, then shipped')}</span></div>
+            <div className="custom-step"><b className="serif">03</b><span>{t('匠人手工製作，3–7 工作天寄出', 'Handwoven in 3–7 business days, then shipped')}</span></div>
             <img src="/images/model-mustard.jpg" alt="" className="custom-aside-img" />
           </aside>
         </div>

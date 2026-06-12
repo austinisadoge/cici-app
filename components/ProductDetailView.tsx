@@ -94,8 +94,8 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
             </div>
 
             <div className="pd-stock">
-              {product.stock === 'in-stock' && t('現貨．1–3 天內出貨', 'In stock · Ships in 1–3 days')}
-              {product.stock === 'made-to-order' && t('接單製作．約 7–14 天出貨', 'Made to order · Ships in 7–14 days')}
+              {product.stock === 'in-stock' && t('現貨．48 小時內出貨', 'In stock · Ships within 48 hours')}
+              {product.stock === 'made-to-order' && t('訂製．3–7 個工作天出貨', 'Made to order · Ships in 3–7 business days')}
               {soldOut && t('已售罄．可詢問客製', 'Sold out · Custom order available')}
             </div>
 
