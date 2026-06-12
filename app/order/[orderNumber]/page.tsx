@@ -50,7 +50,9 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
           <div className="payment-box">
             <div className="kicker">{t('付款資訊．銀行匯款', 'Payment · Bank Transfer')}</div>
             <div className="payment-bank-name">{BANK_INFO.bank}</div>
-            <div className="payment-bank-row">{t('戶名', 'Account Holder')}：{BANK_INFO.holder}</div>
+            {BANK_INFO.holder && (
+              <div className="payment-bank-row">{t('戶名', 'Account Holder')}：{BANK_INFO.holder}</div>
+            )}
             <div className="payment-bank-row payment-bank-account">
               {t('帳號', 'Account')}：{BANK_INFO.account}
             </div>

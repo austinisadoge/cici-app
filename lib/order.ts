@@ -12,9 +12,10 @@ export function generateOrderNumber(): string {
 }
 
 export const BANK_INFO = {
-  bank: process.env.NEXT_PUBLIC_BANK_NAME || '玉山銀行（808）',
-  holder: process.env.NEXT_PUBLIC_BANK_HOLDER || '陳○○',
-  account: process.env.NEXT_PUBLIC_BANK_ACCOUNT || '1234-5678-9012-3456',
+  bank: process.env.NEXT_PUBLIC_BANK_NAME || '聯邦銀行（803）',
+  // 戶名選填：沒設定就不顯示（業主要求匯款資訊不露名字）
+  holder: process.env.NEXT_PUBLIC_BANK_HOLDER || '',
+  account: process.env.NEXT_PUBLIC_BANK_ACCOUNT || '015500619098',
 }
 
 export function paymentInstructions(method: PaymentMethod, language: 'zh' | 'en'): string {
@@ -23,7 +24,9 @@ export function paymentInstructions(method: PaymentMethod, language: 'zh' | 'en'
       ? 'TNG eWallet 收款 QR 碼將於訂單頁面顯示。掃碼用馬幣付款後，請回到訂單頁上傳付款截圖。'
       : 'A TNG QR code will be shown on the order page. Scan to pay in MYR, then upload your payment screenshot.'
   }
+  const holderZh = BANK_INFO.holder ? `　戶名：${BANK_INFO.holder}` : ''
+  const holderEn = BANK_INFO.holder ? ` · Account holder: ${BANK_INFO.holder}` : ''
   return language === 'zh'
-    ? `銀行：${BANK_INFO.bank}　戶名：${BANK_INFO.holder}　帳號：${BANK_INFO.account}\n請於 ATM 或臨櫃匯款後，回到訂單頁回填末五碼。`
-    : `Bank: ${BANK_INFO.bank} · Account holder: ${BANK_INFO.holder} · Account: ${BANK_INFO.account}\nAfter transfer, return to the order page and submit the last 5 digits.`
+    ? `銀行：${BANK_INFO.bank}${holderZh}　帳號：${BANK_INFO.account}\n請於 ATM 或臨櫃匯款後，回到訂單頁回填末五碼。`
+    : `Bank: ${BANK_INFO.bank}${holderEn} · Account: ${BANK_INFO.account}\nAfter transfer, return to the order page and submit the last 5 digits.`
 }
