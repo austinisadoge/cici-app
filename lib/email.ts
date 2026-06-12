@@ -12,7 +12,8 @@ function getResend(): Resend | null {
   return _resend
 }
 
-const FROM = process.env.RESEND_FROM || 'CiCi <onboarding@resend.dev>'
+// 已在 Resend 驗證 cicidailystudio.com，預設用正式網域寄
+const FROM = process.env.RESEND_FROM || 'CiCi Daily Studio <hello@cicidailystudio.com>'
 
 export type OrderEmailData = {
   to: string
