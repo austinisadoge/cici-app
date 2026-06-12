@@ -23,7 +23,6 @@ export default function EditProductPage({
           (a: { sort_order: number }, b: { sort_order: number }) => a.sort_order - b.sort_order
         )
         setInitial({
-          slug: p.slug,
           series: p.series,
           category: p.category,
           name_zh: p.name_zh ?? '',
@@ -33,7 +32,6 @@ export default function EditProductPage({
           description_zh: p.description_zh ?? '',
           description_en: p.description_en ?? '',
           price_twd: p.price_twd,
-          price_myr: p.price_myr,
           stock_status: p.stock_status,
           is_new: p.is_new,
           is_active: p.is_active,

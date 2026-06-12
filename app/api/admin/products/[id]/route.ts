@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { isAdminAuth } from '@/lib/admin-auth'
 import { getServiceClient } from '@/lib/supabase'
-import { pickProductFields, setPrimaryImage } from '@/lib/admin-products'
+import { pickProductFields, setPrimaryImage, computeMyr } from '@/lib/admin-products'
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -35,15 +35,18 @@ export async function PATCH(req: NextRequest, { params }: Params) {
     const body = await req.json()
     const fields = pickProductFields(body)
 
+    // 改台幣價就同步重算馬幣（一律 ÷8）
+    if (typeof fields.price_twd === 'number') {
+      if (fields.price_twd <= 0) {
+        return NextResponse.json({ error: 'price_twd must be positive' }, { status: 400 })
+      }
+      fields.price_myr = computeMyr(fields.price_twd)
+    }
+
     const sb = getServiceClient()
     if (Object.keys(fields).length > 0) {
       const { error } = await sb.from('products').update(fields).eq('id', id)
-      if (error) {
-        if (error.code === '23505') {
-          return NextResponse.json({ error: `Slug "${fields.slug}" already exists` }, { status: 409 })
-        }
-        throw error
-      }
+      if (error) throw error
     }
 
     // image_url 有帶才動圖：字串=換圖、空字串=移除、沒帶=不動

@@ -1,12 +1,18 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-// 只允許這些欄位進資料庫，防止亂塞
+// 業主只填台幣，馬幣一律 ÷8 自動換算（業主指定）
+export const TWD_PER_MYR = 8
+export function computeMyr(twd: number): number {
+  return Math.max(1, Math.round(twd / TWD_PER_MYR))
+}
+
+// 只允許這些欄位進資料庫（slug 與 price_myr 由伺服器決定，不收前端的）
 export const PRODUCT_FIELDS = [
-  'slug', 'series', 'category',
+  'series', 'category',
   'name_zh', 'name_en',
   'meta_zh', 'meta_en',
   'description_zh', 'description_en',
-  'price_twd', 'price_myr',
+  'price_twd',
   'stock_status', 'is_new', 'is_active', 'sort_order',
 ] as const
 
@@ -19,12 +25,26 @@ export function pickProductFields(body: Record<string, unknown>) {
 }
 
 export function validateNewProduct(p: Record<string, unknown>): string | null {
-  for (const f of ['slug', 'series', 'category', 'name_zh', 'name_en'] as const) {
+  for (const f of ['series', 'category', 'name_zh', 'name_en'] as const) {
     if (!p[f] || typeof p[f] !== 'string') return `${f} is required`
   }
-  if (typeof p.price_twd !== 'number' || p.price_twd < 0) return 'price_twd must be a number'
-  if (typeof p.price_myr !== 'number' || p.price_myr < 0) return 'price_myr must be a number'
+  if (typeof p.price_twd !== 'number' || p.price_twd <= 0) return 'price_twd must be a positive number'
   return null
+}
+
+// slug 自動生成：英文名 → 小寫連字號；slugify 不出東西就用時間戳
+export function generateSlug(nameEn: string): string {
+  const s = nameEn
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40)
+  return s || `p-${Date.now().toString(36)}`
+}
+
+export function slugWithSuffix(slug: string): string {
+  return `${slug}-${Math.random().toString(36).slice(2, 6)}`
 }
 
 // MVP：每個商品一張主圖，整批換掉
