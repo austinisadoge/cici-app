@@ -3,7 +3,7 @@ import { Providers } from './providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'CiCi Daily Jewelry · Handmade in Taiwan',
+  title: 'CiCi Daily Studio · Handmade in Taiwan',
   description:
     'Collecting the sceneries of life through weaving, needlework and paint. Handmade earrings, bracelets, necklaces and more, crafted in Taiwan.',
 }

@@ -34,7 +34,7 @@ export function EditorialSection() {
                 'Natural colours, organic materials and the landscapes hidden inside mineral stones, slowly transformed by hand into one-of-a-kind works. May every piece you love become a gentle conversation with yourself, and a quiet resonance with another heart.'
               )}
             </p>
-            <div className="sig">{t('——CiCi Daily Jewelry．於台灣', '— CiCi Daily Jewelry, Taiwan')}</div>
+            <div className="sig">{t('——CiCi Daily Studio．於台灣', '— CiCi Daily Studio, Taiwan')}</div>
           </div>
         </div>
       </div>

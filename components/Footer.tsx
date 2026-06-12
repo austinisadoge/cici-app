@@ -11,7 +11,7 @@ export function Footer() {
           <div>
             <div className="brand-name">
               CiCi
-              <span className="brand-name-sub">DAILY JEWELRY</span>
+              <span className="brand-name-sub">DAILY STUDIO</span>
             </div>
             <p className="brand-desc">
               {t(
@@ -60,8 +60,8 @@ export function Footer() {
         <div className="foot-bot">
           <span>
             {t(
-              '© 2026 CiCi Daily Jewelry．台灣手作',
-              '© 2026 CiCi DAILY JEWELRY · HANDMADE IN TAIWAN'
+              '© 2026 CiCi Daily Studio．台灣手作',
+              '© 2026 CiCi DAILY STUDIO · HANDMADE IN TAIWAN'
             )}
           </span>
           <span>{t('隱私．條款', 'PRIVACY · TERMS')}</span>

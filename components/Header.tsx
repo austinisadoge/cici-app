@@ -17,7 +17,7 @@ export function Header() {
         </div>
         <a href="/" className="nav-logo">
           CiCi
-          <span className="nav-logo-sub">DAILY JEWELRY</span>
+          <span className="nav-logo-sub">DAILY STUDIO</span>
         </a>
         <div className="nav-right">
           <div className="lang-switch" title="Switch language">
