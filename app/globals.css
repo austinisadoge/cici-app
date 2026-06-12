@@ -95,7 +95,36 @@ button { font-family: inherit; }
   font-size: 12px; letter-spacing: .08em; transition: .2s var(--tx);
   white-space: nowrap;
 }
-.bag-icon { display: none; width: 19px; height: 19px; }
+
+/* 圖示按鈕 + 下拉選單 */
+.nav-icon-btn {
+  background: none; border: none; padding: 6px; font-family: inherit;
+  cursor: pointer; color: var(--muted); transition: color .2s var(--tx);
+  display: flex; align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-icon-btn svg { width: 19px; height: 19px; display: block; }
+.nav-icon-btn:hover, .nav-icon-btn.on { color: var(--ink); }
+.nav-dd { position: relative; }
+.nav-dd-backdrop { position: fixed; inset: 0; z-index: 55; background: transparent; }
+.nav-dd-panel {
+  position: absolute; top: calc(100% + 12px); right: -6px;
+  background: #fff; border: 1px solid var(--line);
+  min-width: 168px; padding: 6px 0; z-index: 56;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .09);
+  animation: ddIn .18s var(--tx);
+}
+@keyframes ddIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.nav-dd-panel button {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; padding: 11px 16px;
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  font-size: 13px; color: var(--muted); letter-spacing: .04em;
+  transition: .15s var(--tx); white-space: nowrap;
+}
+.nav-dd-panel button:hover { background: var(--soft); color: var(--ink); }
+.nav-dd-panel button.on { color: var(--ink); font-weight: 500; }
+.nav-dd-panel i { font-style: normal; font-size: 12px; }
 .nav-action:hover { color: var(--ink); }
 .bag { position: relative; }
 .bag-badge {
@@ -459,13 +488,11 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
 @media (max-width: 600px) {
   .nav-in { height: 60px; gap: 8px; }
   .nav-logo { font-size: 22px; }
-  .nav-right { gap: 10px; font-size: 11px; }
-  .lang-switch { padding: 5px 8px; gap: 5px; }
-  .lang-switch svg { width: 12px; height: 12px; }
-  .nav-action:not(.bag) { display: none; }
-  .bag .bag-text { display: none; }
-  .bag .bag-icon { display: block; }
-  .bag-badge { top: -4px; right: -7px; }
+  .nav-right { gap: 2px; }
+  .nav-icon-btn { padding: 5px; }
+  .nav-icon-btn svg { width: 18px; height: 18px; }
+  .bag-badge { top: -2px; right: -2px; }
+  .nav-dd-panel { right: -40px; }
   .announce { font-size: 10px; padding: 10px; letter-spacing: .16em; }
   .fifty .img { aspect-ratio: 1/1; }
   .fifty .text { padding: 56px 20px; }
