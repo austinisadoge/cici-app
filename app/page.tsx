@@ -19,11 +19,8 @@ export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   const catalog = await fetchCatalog()
-  const bracelets = catalog.filter(p => p.category === 'braided-bracelets')
-  const earrings = catalog.filter(p => p.category === 'earrings')
-  const others = catalog.filter(
-    p => p.category !== 'braided-bracelets' && p.category !== 'earrings'
-  )
+  // 首頁只精選手繩一區（其餘商品在 /shop 與選單裡）
+  const bracelets = catalog.filter(p => p.category === 'braided-bracelets').slice(0, 3)
 
   return (
     <>
@@ -35,29 +32,12 @@ export default async function HomePage() {
         id="bracelets"
         kicker={{ zh: '系列．礦石物語', en: 'Series · Stone Stories' }}
         title={{ zh: '手繩精選', en: 'Braided Bracelets' }}
-        viewAll={{ zh: '查看全部手繩 →', en: 'View all bracelets →' }}
-        viewAllHref="/shop?category=braided-bracelets"
+        viewAll={{ zh: '看更多作品 →', en: 'View the collection →' }}
+        viewAllHref="/shop"
         products={bracelets}
+        editorial
       />
       <LargeHero />
-      <ProductSection
-        id="earrings"
-        kicker={{ zh: '精選．耳飾', en: 'Featured · Earrings' }}
-        title={{ zh: '編織圓圈．流蘇', en: 'Woven Hoops & Tassels' }}
-        viewAll={{ zh: '查看全部耳飾 →', en: 'View all earrings →' }}
-        viewAllHref="/shop?category=earrings"
-        products={earrings}
-      />
-      {others.length > 0 && (
-        <ProductSection
-          id="more"
-          kicker={{ zh: '更多作品', en: 'More Pieces' }}
-          title={{ zh: '項鍊．掛飾．小物', en: 'Necklaces, Charms & More' }}
-          viewAll={{ zh: '查看全部 →', en: 'View all →' }}
-          viewAllHref="/shop"
-          products={others}
-        />
-      )}
       <CustomSection />
       <EditorialSection />
       <PaymentShipping />

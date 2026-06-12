@@ -16,9 +16,11 @@ interface Props {
   viewAllHref?: string
   products: Product[]
   compact?: boolean
+  /** 純導引模式：不顯示價格、不顯示快速加購，點了就到商品頁 */
+  editorial?: boolean
 }
 
-export function ProductSection({ id, kicker, title, viewAll, viewAllHref, products, compact }: Props) {
+export function ProductSection({ id, kicker, title, viewAll, viewAllHref, products, compact, editorial }: Props) {
   const { t } = useI18n()
   const { add, open } = useCart()
   return (
@@ -59,7 +61,7 @@ export function ProductSection({ id, kicker, title, viewAll, viewAllHref, produc
                 <Link href={`/product/${p.slug}`} className="card-img-link">
                   <img src={p.image} alt={t(p.name.zh, p.name.en)} />
                 </Link>
-                {p.stock !== 'sold-out' && (
+                {!editorial && p.stock !== 'sold-out' && (
                   <button
                     type="button"
                     className="card-add"
@@ -81,7 +83,7 @@ export function ProductSection({ id, kicker, title, viewAll, viewAllHref, produc
                 </div>
                 <div className="name">{t(p.name.zh, p.name.en)}</div>
                 <div className="meta">{t(p.meta.zh, p.meta.en)}</div>
-                <Price twd={p.price.twd} myr={p.price.myr} />
+                {!editorial && <Price twd={p.price.twd} myr={p.price.myr} />}
               </Link>
             </div>
           ))}
