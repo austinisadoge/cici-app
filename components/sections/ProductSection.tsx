@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
 import { seriesById, type Product } from '@/lib/products'
@@ -54,12 +55,15 @@ export function ProductSection({ id, kicker, title, viewAll, viewAllHref, produc
                         ? t('客製訂製', 'Made to order')
                         : t('現貨', 'In stock')}
                 </span>
-                <img src={p.image} alt={t(p.name.zh, p.name.en)} />
+                <Link href={`/product/${p.slug}`} className="card-img-link">
+                  <img src={p.image} alt={t(p.name.zh, p.name.en)} />
+                </Link>
                 {p.stock !== 'sold-out' && (
                   <button
                     type="button"
                     className="card-add"
                     onClick={(e) => {
+                      e.preventDefault()
                       e.stopPropagation()
                       add(p)
                       open()
@@ -70,12 +74,14 @@ export function ProductSection({ id, kicker, title, viewAll, viewAllHref, produc
                   </button>
                 )}
               </div>
-              <div className="card-series">
-                {t(seriesById(p.series).name.zh, seriesById(p.series).name.en)}
-              </div>
-              <div className="name">{t(p.name.zh, p.name.en)}</div>
-              <div className="meta">{t(p.meta.zh, p.meta.en)}</div>
-              <Price twd={p.price.twd} myr={p.price.myr} />
+              <Link href={`/product/${p.slug}`} className="card-text-link">
+                <div className="card-series">
+                  {t(seriesById(p.series).name.zh, seriesById(p.series).name.en)}
+                </div>
+                <div className="name">{t(p.name.zh, p.name.en)}</div>
+                <div className="meta">{t(p.meta.zh, p.meta.en)}</div>
+                <Price twd={p.price.twd} myr={p.price.myr} />
+              </Link>
             </div>
           ))}
         </div>

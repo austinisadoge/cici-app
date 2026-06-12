@@ -19,8 +19,10 @@ export interface ProductFormData {
   is_new: boolean
   is_active: boolean
   sort_order: number | ''
-  image_url: string
+  images: string[]
 }
+
+const MAX_IMAGES = 8
 
 const EMPTY: ProductFormData = {
   series: 'living-scenery',
@@ -36,7 +38,7 @@ const EMPTY: ProductFormData = {
   is_new: true,
   is_active: true,
   sort_order: 0,
-  image_url: '',
+  images: [],
 }
 
 export function ProductForm({
@@ -62,17 +64,20 @@ export function ProductForm({
       : null
 
   const onFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const files = Array.from(e.target.files ?? [])
+    if (!files.length) return
     setError(null)
     setUploading(true)
     try {
-      const fd = new FormData()
-      fd.append('file', file)
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || '上傳失敗，再試一次')
-      set('image_url', data.url)
+      for (const file of files) {
+        if (form.images.length >= MAX_IMAGES) break
+        const fd = new FormData()
+        fd.append('file', file)
+        const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error || '上傳失敗，再試一次')
+        setForm(f => ({ ...f, images: [...f.images, data.url].slice(0, MAX_IMAGES) }))
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : '上傳失敗，再試一次')
     } finally {
@@ -80,6 +85,16 @@ export function ProductForm({
       if (fileRef.current) fileRef.current.value = ''
     }
   }
+
+  const removeImage = (i: number) =>
+    setForm(f => ({ ...f, images: f.images.filter((_, idx) => idx !== i) }))
+
+  const makeCover = (i: number) =>
+    setForm(f => {
+      const imgs = [...f.images]
+      const [picked] = imgs.splice(i, 1)
+      return { ...f, images: [picked, ...imgs] }
+    })
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -89,10 +104,12 @@ export function ProductForm({
     if (form.price_twd === '' || Number(form.price_twd) <= 0) return setError('請填台幣售價')
     setSaving(true)
     try {
+      const { images, ...rest } = form
       const payload = {
-        ...form,
+        ...rest,
         price_twd: Number(form.price_twd),
         sort_order: Number(form.sort_order) || 0,
+        image_urls: images,
       }
       const res = await fetch(
         productId ? `/api/admin/products/${productId}` : '/api/admin/products',
@@ -114,24 +131,39 @@ export function ProductForm({
 
   return (
     <form className="admin-form" onSubmit={onSubmit}>
-      {/* ── 照片：手機上最大最好按 ── */}
+      {/* ── 照片：手機上最大最好按，可多張 ── */}
       <div className="admin-form-section">
-        <h3>① 商品照片</h3>
-        {form.image_url ? (
-          <div className="admin-photo-done">
-            <img src={form.image_url} alt="" className="admin-img-preview" />
-            <div className="admin-photo-btns">
-              <label htmlFor="admin-file" className="admin-upload-btn admin-upload-swap">
-                {uploading ? '上傳中…' : '🔄 換一張'}
-              </label>
-              <button type="button" className="admin-btn-light" onClick={() => set('image_url', '')}>
-                移除
-              </button>
-            </div>
+        <h3>① 商品照片（可多張，第一張是封面）</h3>
+        {form.images.length > 0 && (
+          <div className="admin-img-grid">
+            {form.images.map((url, i) => (
+              <div key={url} className="admin-img-cell">
+                <img src={url} alt="" />
+                {i === 0 && <span className="admin-cover-tag">封面</span>}
+                <button
+                  type="button"
+                  className="admin-img-x"
+                  onClick={() => removeImage(i)}
+                  aria-label="移除這張"
+                >
+                  ×
+                </button>
+                {i > 0 && (
+                  <button type="button" className="admin-img-cover" onClick={() => makeCover(i)}>
+                    設為封面
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
-        ) : (
-          <label htmlFor="admin-file" className={`admin-upload-btn ${uploading ? 'busy' : ''}`}>
-            {uploading ? '上傳中，等我一下…' : '📷 拍照或從相簿選'}
+        )}
+        {form.images.length < MAX_IMAGES && (
+          <label htmlFor="admin-file" className={`admin-upload-btn ${uploading ? 'busy' : ''} ${form.images.length > 0 ? 'admin-upload-swap' : ''}`}>
+            {uploading
+              ? '上傳中，等我一下…'
+              : form.images.length > 0
+                ? '＋ 再加一張'
+                : '📷 拍照或從相簿選'}
           </label>
         )}
         <input
@@ -139,11 +171,12 @@ export function ProductForm({
           id="admin-file"
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
+          multiple
           onChange={onFile}
           disabled={uploading}
           hidden
         />
-        <p className="admin-hint">手機直拍即可，系統自動處理（5MB 以內）</p>
+        <p className="admin-hint">手機直拍即可，一次可選多張（每張 5MB 以內，最多 {MAX_IMAGES} 張）</p>
       </div>
 
       {/* ── 名稱與定價：最少必填 ── */}

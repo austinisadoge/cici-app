@@ -65,7 +65,15 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
           <div className="payment-box">
             <div className="kicker">{t('付款資訊．TNG eWallet', 'Payment · TNG eWallet')}</div>
             <div className="payment-bank-name">TNG QR Code</div>
-            <div className="qr-placeholder">QR</div>
+            {process.env.NEXT_PUBLIC_TNG_QR_URL ? (
+              <img
+                src={process.env.NEXT_PUBLIC_TNG_QR_URL}
+                alt="TNG QR Code"
+                className="qr-img"
+              />
+            ) : (
+              <div className="qr-placeholder">QR</div>
+            )}
             <p className="payment-note">
               {t(
                 '掃描上方 QR 碼用 TNG App 付款，金額為訂單總計（馬幣）。完成後回填末五碼或上傳截圖。',

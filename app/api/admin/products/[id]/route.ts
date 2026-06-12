@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { isAdminAuth } from '@/lib/admin-auth'
 import { getServiceClient } from '@/lib/supabase'
-import { pickProductFields, setPrimaryImage, computeMyr } from '@/lib/admin-products'
+import { pickProductFields, setProductImages, normalizeImageUrls, computeMyr } from '@/lib/admin-products'
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -49,9 +49,10 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       if (error) throw error
     }
 
-    // image_url 有帶才動圖：字串=換圖、空字串=移除、沒帶=不動
-    if (typeof body.image_url === 'string') {
-      await setPrimaryImage(sb, id, body.image_url || null)
+    // image_urls 有帶才動圖（整批換），沒帶＝不動
+    const urls = normalizeImageUrls(body)
+    if (urls !== null) {
+      await setProductImages(sb, id, urls)
     }
 
     return NextResponse.json({ ok: true })

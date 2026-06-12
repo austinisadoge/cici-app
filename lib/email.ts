@@ -67,6 +67,57 @@ export async function sendShippingNotification(d: OrderEmailData) {
   await send(d.to, subj, renderShipped(d))
 }
 
+export type CustomInquiryData = {
+  name: string
+  email: string
+  country: 'TW' | 'MY'
+  category: string
+  colors: string
+  stone: string
+  budget: string
+  details: string
+  reference: string
+  language: 'zh' | 'en'
+}
+
+export async function sendCustomInquiry(d: CustomInquiryData) {
+  const ownerTo = process.env.CUSTOM_INQUIRY_EMAIL || 'austin1476@gmail.com'
+  const zh = d.language === 'zh'
+
+  const row = (label: string, value: string) =>
+    value
+      ? `<tr><td style="padding:6px 0;color:#737373;width:96px;vertical-align:top;">${label}</td><td style="padding:6px 0;">${value.replace(/\n/g, '<br>')}</td></tr>`
+      : ''
+
+  // 給工作室的通知
+  const ownerHtml = wrap(`
+<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">🧶 新客製詢問</h2>
+<table width="100%" style="border-collapse:collapse;font-size:14px;margin-top:16px;">
+${row('姓名', d.name)}
+${row('Email', d.email)}
+${row('地區', d.country === 'MY' ? '馬來西亞' : '台灣')}
+${row('品類', d.category)}
+${row('色系', d.colors)}
+${row('寶石/材質', d.stone)}
+${row('預算', d.budget)}
+${row('需求描述', d.details)}
+${row('參考連結', d.reference)}
+</table>
+<p style="font-size:13px;color:#737373;margin-top:20px;">直接回覆這封信即可聯繫客人（回覆地址：${d.email}）。</p>`)
+  await send(ownerTo, `🧶 新客製詢問：${d.name}`, ownerHtml)
+
+  // 給客人的確認信
+  const ackHtml = wrap(zh
+    ? `<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">${d.name} 您好</h2>
+<p style="font-size:14px;line-height:1.8;">我們收到您的客製需求了。匠人會仔細看過您想要的色系與細節，<strong>1–2 個工作天內</strong>回信與您討論設計與報價。</p>
+<p style="font-size:14px;line-height:1.8;">每一件客製作品從討論到完成約需 7–14 天，謝謝您願意等待手作的時間。</p>`
+    : `<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">Hello, ${d.name}</h2>
+<p style="font-size:14px;line-height:1.8;">We have received your custom request. Our artisan will review your palette and details, and reply within <strong>1–2 business days</strong> to discuss the design and quote.</p>
+<p style="font-size:14px;line-height:1.8;">A custom piece takes about 7–14 days from conversation to completion. Thank you for giving handcraft its time.</p>`)
+  const ackSubj = zh ? 'CiCi 已收到您的客製需求' : 'CiCi has received your custom request'
+  await send(d.email, ackSubj, ackHtml)
+}
+
 function sym(c: 'TWD' | 'MYR') { return c === 'MYR' ? 'RM' : 'NT$' }
 
 function wrap(body: string) {

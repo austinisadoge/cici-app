@@ -37,9 +37,9 @@ export function CustomSection() {
             <span>{t('手工編織', 'Hand-woven')}</span>
           </div>
         </div>
-        <button className="btn">
+        <a href="/custom" className="btn">
           {t('開始客製訂單 →', 'START CUSTOM ORDER →')}
-        </button>
+        </a>
       </div>
     </section>
   )

@@ -47,18 +47,31 @@ export function slugWithSuffix(slug: string): string {
   return `${slug}-${Math.random().toString(36).slice(2, 6)}`
 }
 
-// MVP：每個商品一張主圖，整批換掉
-export async function setPrimaryImage(
+// 多圖：整批換掉，順序照陣列（第一張＝封面），上限 8 張
+export const MAX_IMAGES = 8
+
+export function normalizeImageUrls(body: Record<string, unknown>): string[] | null {
+  if (Array.isArray(body.image_urls)) {
+    return (body.image_urls as unknown[])
+      .filter((u): u is string => typeof u === 'string' && u.length > 0)
+      .slice(0, MAX_IMAGES)
+  }
+  // 舊欄位相容：image_url 字串＝單圖、空字串＝清空
+  if (typeof body.image_url === 'string') {
+    return body.image_url ? [body.image_url] : []
+  }
+  return null // 沒帶 = 不動圖
+}
+
+export async function setProductImages(
   sb: SupabaseClient,
   productId: string,
-  imageUrl: string | null
+  urls: string[]
 ) {
   await sb.from('product_images').delete().eq('product_id', productId)
-  if (imageUrl) {
-    await sb.from('product_images').insert({
-      product_id: productId,
-      url: imageUrl,
-      sort_order: 0,
-    })
+  if (urls.length) {
+    await sb.from('product_images').insert(
+      urls.map((url, i) => ({ product_id: productId, url, sort_order: i }))
+    )
   }
 }

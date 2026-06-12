@@ -5,7 +5,8 @@ import { getServiceClient } from '@/lib/supabase'
 import {
   pickProductFields,
   validateNewProduct,
-  setPrimaryImage,
+  setProductImages,
+  normalizeImageUrls,
   generateSlug,
   slugWithSuffix,
   computeMyr,
@@ -60,8 +61,9 @@ export async function POST(req: NextRequest) {
     }
     if (!product) throw new Error('Insert failed')
 
-    if (typeof body.image_url === 'string' && body.image_url) {
-      await setPrimaryImage(sb, product.id, body.image_url)
+    const urls = normalizeImageUrls(body)
+    if (urls && urls.length) {
+      await setProductImages(sb, product.id, urls)
     }
 
     return NextResponse.json({ product })

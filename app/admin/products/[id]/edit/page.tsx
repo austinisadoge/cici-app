@@ -36,7 +36,7 @@ export default function EditProductPage({
           is_new: p.is_new,
           is_active: p.is_active,
           sort_order: p.sort_order ?? 0,
-          image_url: imgs[0]?.url ?? '',
+          images: imgs.map((i: { url: string }) => i.url),
         })
       })
       .catch(e => setError(String(e)))
