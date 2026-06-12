@@ -28,8 +28,8 @@ export function Header() {
       <div className="container-x nav-in">
         <div className="nav-left">
           <a href="/#series">{t('系列', 'SERIES')}</a>
-          <a href="/#bracelets">{t('手繩', 'BRACELETS')}</a>
-          <a href="/#earrings">{t('耳飾', 'EARRINGS')}</a>
+          <a href="/shop?category=braided-bracelets">{t('手繩', 'BRACELETS')}</a>
+          <a href="/shop?category=earrings">{t('耳飾', 'EARRINGS')}</a>
           <a href="/#about">{t('理念', 'PHILOSOPHY')}</a>
         </div>
         <a href="/" className="nav-logo">

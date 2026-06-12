@@ -46,6 +46,12 @@ async function send(to: string, subject: string, html: string) {
   }
 }
 
+// 寄一封簡單的內部通知給業主（備援用）
+export async function sendRawToOwner(subject: string, bodyHtml: string) {
+  const to = process.env.CUSTOM_INQUIRY_EMAIL || 'austin1476@gmail.com'
+  await send(to, subject, wrap(bodyHtml))
+}
+
 export async function sendOrderConfirmation(d: OrderEmailData) {
   const subj = d.language === 'zh'
     ? `CiCi 訂單確認 #${d.orderNumber}`
