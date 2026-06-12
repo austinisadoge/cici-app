@@ -33,6 +33,7 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
   }
 
   const onAdd = () => {
+    if (added) return // 回饋期間擋連點，避免誤加兩件
     add(cartProduct)
     open()
     setAdded(true)
@@ -85,7 +86,12 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
             {(product.meta.zh || product.meta.en) && (
               <div className="pd-meta">{t(product.meta.zh, product.meta.en)}</div>
             )}
-            <div className="pd-price serif">{price}</div>
+            <div className="pd-price serif">
+              {price}
+              {product.stock === 'made-to-order' && (
+                <span className="pd-price-note">{t('（客製參考價，細節以討論為準）', '(guide price, final after we discuss)')}</span>
+              )}
+            </div>
 
             <div className="pd-stock">
               {product.stock === 'in-stock' && t('現貨．1–3 天內出貨', 'In stock · Ships in 1–3 days')}

@@ -558,6 +558,37 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .ig-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
 }
 
+/* === FORM FIELD LABELS (常駐標籤，不靠 placeholder) === */
+.field { display: block; margin-bottom: 14px; }
+.field-label {
+  display: block; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 6px;
+}
+.field input, .field textarea { margin-top: 0 !important; }
+
+/* === CHECKOUT BACK LINK === */
+.checkout-back {
+  display: inline-block; font-size: 13px; color: var(--muted);
+  letter-spacing: .04em; margin-bottom: 20px;
+  transition: color .2s var(--tx);
+}
+.checkout-back:hover { color: var(--ink); }
+
+/* === ORDER SAVE TIP === */
+.order-save-tip {
+  max-width: 440px; margin: 18px auto 0;
+  font-size: 13px; line-height: 1.7; color: var(--muted);
+  background: var(--warm); border-radius: 10px; padding: 14px 18px;
+  text-align: center;
+}
+
+/* === MADE-TO-ORDER GUIDE PRICE === */
+.pd-price-note {
+  display: block; font-family: var(--font-sans); font-size: 12px;
+  color: var(--muted); letter-spacing: .02em; margin-top: 6px; font-weight: 300;
+}
+
 /* === LEGAL PAGES === */
 .legal-wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 120px; }
 .legal-wrap h1 {
@@ -993,7 +1024,12 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .drawer-head { padding: 24px 20px; }
   .drawer-body { padding: 20px; }
   .drawer-foot { padding: 20px; }
-  .card-add { opacity: 1; transform: translateY(0); }
+  /* 手機沒 hover：+ 鈕常駐，改深底白字才不會疊在淺色商品照上消失 */
+  .card-add {
+    opacity: 1; transform: translateY(0);
+    width: 44px; height: 44px; font-size: 24px;
+    background: var(--ink); color: #fff; border-color: var(--ink);
+  }
 }
 
 /* === CHECKOUT === */

@@ -20,6 +20,12 @@ export default function OrderSuccess({ params }: { params: Promise<{ orderNumber
           )}
         </p>
         <div className="success-number">{orderNumber}</div>
+        <div className="order-save-tip">
+          {t(
+            '建議截圖保存訂單編號，方便日後查詢。',
+            'Screenshot your order number for future reference.'
+          )}
+        </div>
         <a href="/" className="btn success-back">{t('繼續逛逛', 'CONTINUE SHOPPING')}</a>
       </main>
     </>

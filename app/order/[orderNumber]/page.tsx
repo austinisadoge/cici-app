@@ -46,6 +46,12 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
       <main className="order-wrap">
         <h1 className="serif order-title">{t('訂單成立', 'Order Placed')}</h1>
         <div className="order-number">{orderNumber}</div>
+        <div className="order-save-tip">
+          {t(
+            '請截圖保存此頁。確認信也已寄到你的信箱（如未收到請查看垃圾信匣）。',
+            'Please screenshot this page. A confirmation email has also been sent (check your spam folder if missing).'
+          )}
+        </div>
 
         {paymentMethod === 'bank_transfer' ? (
           <div className="payment-box">

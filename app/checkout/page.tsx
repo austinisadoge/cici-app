@@ -86,6 +86,7 @@ export default function CheckoutPage() {
     <>
       <Header />
       <main className="checkout-wrap">
+        <a href="/" className="checkout-back">{t('← 繼續購物', '← Continue shopping')}</a>
         <h1 className="serif checkout-title">{t('結帳', 'Checkout')}</h1>
         <div className="checkout-grid">
           <form onSubmit={onSubmit} className="checkout-form">
@@ -103,15 +104,30 @@ export default function CheckoutPage() {
 
             <div className="form-section">
               <h2 className="form-title">{t('聯絡資訊', 'Contact')}</h2>
-              <input required type="email" placeholder="Email *" value={form.customer_email} onChange={handle('customer_email')} />
-              <input required placeholder={t('姓名 *', 'Full name *')} value={form.customer_name} onChange={handle('customer_name')} />
-              <input placeholder={t('電話', 'Phone')} value={form.customer_phone} onChange={handle('customer_phone')} />
+              <label className="field">
+                <span className="field-label">Email *</span>
+                <input required type="email" placeholder={t('收訂單通知用', 'For order updates')} value={form.customer_email} onChange={handle('customer_email')} />
+              </label>
+              <label className="field">
+                <span className="field-label">{t('姓名 *', 'Full name *')}</span>
+                <input required placeholder={t('收件人姓名', 'Recipient name')} value={form.customer_name} onChange={handle('customer_name')} />
+              </label>
+              <label className="field">
+                <span className="field-label">{t('電話', 'Phone')}</span>
+                <input placeholder={t('方便聯繫的號碼', 'A number we can reach you at')} value={form.customer_phone} onChange={handle('customer_phone')} />
+              </label>
             </div>
 
             <div className="form-section">
               <h2 className="form-title">{t('收件地址', 'Shipping address')}</h2>
-              <textarea required placeholder={t('完整地址 *', 'Full address *')} value={form.shipping_address} onChange={handle('shipping_address')} rows={3} />
-              <input placeholder={t('郵遞區號', 'Postal code')} value={form.shipping_zip} onChange={handle('shipping_zip')} />
+              <label className="field">
+                <span className="field-label">{t('完整地址 *', 'Full address *')}</span>
+                <textarea required placeholder={t('縣市、區、街道、門牌', 'City, district, street, number')} value={form.shipping_address} onChange={handle('shipping_address')} rows={3} />
+              </label>
+              <label className="field">
+                <span className="field-label">{t('郵遞區號', 'Postal code')}</span>
+                <input placeholder={t('選填', 'Optional')} value={form.shipping_zip} onChange={handle('shipping_zip')} />
+              </label>
             </div>
 
             <div className="form-section">

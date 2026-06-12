@@ -87,8 +87,14 @@ export default function CustomPage() {
           <form onSubmit={onSubmit} className="checkout-form">
             <div className="form-section">
               <h2 className="form-title">{t('聯絡方式', 'Contact')}</h2>
-              <input required placeholder={t('稱呼 *', 'Name *')} value={form.name} onChange={set('name')} />
-              <input required type="email" placeholder="Email *" value={form.email} onChange={set('email')} />
+              <label className="field">
+                <span className="field-label">{t('稱呼 *', 'Name *')}</span>
+                <input required placeholder={t('怎麼稱呼你', 'What should we call you')} value={form.name} onChange={set('name')} />
+              </label>
+              <label className="field">
+                <span className="field-label">Email *</span>
+                <input required type="email" placeholder={t('回覆討論用', 'For our reply')} value={form.email} onChange={set('email')} />
+              </label>
               <input
                 tabIndex={-1}
                 autoComplete="off"

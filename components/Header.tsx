@@ -95,14 +95,6 @@ export function Header() {
             )}
           </div>
 
-          {/* 搜尋 */}
-          <button type="button" className="nav-icon-btn" aria-label={t('搜尋', 'Search')}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.2" y2="16.2" />
-            </svg>
-          </button>
-
           {/* 購物袋 */}
           <button
             type="button"
