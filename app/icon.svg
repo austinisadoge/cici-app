@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    text {
+      font-family: Georgia, 'Cormorant Garamond', 'Songti TC', 'Times New Roman', serif;
+      font-weight: 500;
+      fill: #171717;
+      stroke: #C9A24B;
+      stroke-width: 1.1;
+      paint-order: stroke fill;
+    }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #FAF6EF; stroke: #C9A24B; }
+    }
+  </style>
+  <text x="32" y="34" font-size="58" text-anchor="middle" dominant-baseline="central">C</text>
+</svg>
