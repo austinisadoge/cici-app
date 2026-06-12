@@ -15,12 +15,14 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<'tng' | 'bank_transfer'>('bank_transfer')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [storeType, setStoreType] = useState<'seven' | 'family'>('seven')
   const [form, setForm] = useState({
     customer_name: '',
     customer_email: '',
     customer_phone: '',
     shipping_address: '',
     shipping_zip: '',
+    store_name: '',
     customer_notes: '',
   })
 
@@ -55,6 +57,16 @@ export default function CheckoutPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
+    // 台灣超商取貨：把店別+門市組成地址字串送出
+    let shipping_address = form.shipping_address
+    if (country === 'TW') {
+      if (!form.store_name.trim()) {
+        setError(t('請填取貨門市名稱或店號', 'Please enter the pickup store name or number'))
+        return
+      }
+      const chain = storeType === 'seven' ? '7-ELEVEN' : '全家 FamilyMart'
+      shipping_address = `${chain}　超商店到店｜門市：${form.store_name.trim()}`
+    }
     setSubmitting(true)
     try {
       const res = await fetch('/api/orders', {
@@ -62,6 +74,7 @@ export default function CheckoutPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
+          shipping_address,
           shipping_country: country,
           payment_method: paymentMethod,
           items: items.map(i => ({ productId: i.productId, quantity: i.quantity })),
@@ -118,17 +131,41 @@ export default function CheckoutPage() {
               </label>
             </div>
 
-            <div className="form-section">
-              <h2 className="form-title">{t('收件地址', 'Shipping address')}</h2>
-              <label className="field">
-                <span className="field-label">{t('完整地址 *', 'Full address *')}</span>
-                <textarea required placeholder={t('縣市、區、街道、門牌', 'City, district, street, number')} value={form.shipping_address} onChange={handle('shipping_address')} rows={3} />
-              </label>
-              <label className="field">
-                <span className="field-label">{t('郵遞區號', 'Postal code')}</span>
-                <input placeholder={t('選填', 'Optional')} value={form.shipping_zip} onChange={handle('shipping_zip')} />
-              </label>
-            </div>
+            {country === 'TW' ? (
+              <div className="form-section">
+                <h2 className="form-title">{t('超商取貨', 'Store Pickup')}</h2>
+                <div className="store-grid">
+                  <button type="button" className={`country-btn ${storeType === 'seven' ? 'on' : ''}`} onClick={() => setStoreType('seven')}>
+                    7-ELEVEN
+                  </button>
+                  <button type="button" className={`country-btn ${storeType === 'family' ? 'on' : ''}`} onClick={() => setStoreType('family')}>
+                    {t('全家 FamilyMart', 'FamilyMart')}
+                  </button>
+                </div>
+                <label className="field">
+                  <span className="field-label">{t('取貨門市名稱 / 店號 *', 'Pickup store name / number *')}</span>
+                  <input required placeholder={t('例：信義門市 或 店號 123456', 'e.g. Xinyi Store or No. 123456')} value={form.store_name} onChange={handle('store_name')} />
+                </label>
+                <p className="store-hint">
+                  {t(
+                    '可在 7-11 或全家 App / 官網查門市店號。我們將寄送至此門市，到貨後超商會通知你取件。',
+                    'Find the store number in the 7-11 or FamilyMart app/site. We ship to this store; you’ll be notified when it arrives.'
+                  )}
+                </p>
+              </div>
+            ) : (
+              <div className="form-section">
+                <h2 className="form-title">{t('收件地址', 'Shipping address')}</h2>
+                <label className="field">
+                  <span className="field-label">{t('完整地址 *', 'Full address *')}</span>
+                  <textarea required placeholder={t('街道、城市、州屬、郵遞區號', 'Street, city, state, postcode')} value={form.shipping_address} onChange={handle('shipping_address')} rows={3} />
+                </label>
+                <label className="field">
+                  <span className="field-label">{t('郵遞區號', 'Postal code')}</span>
+                  <input placeholder={t('選填', 'Optional')} value={form.shipping_zip} onChange={handle('shipping_zip')} />
+                </label>
+              </div>
+            )}
 
             <div className="form-section">
               <h2 className="form-title">{t('付款方式', 'Payment')}</h2>

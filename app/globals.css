@@ -1101,6 +1101,8 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
 .form-section textarea, .report-form textarea { resize: vertical; min-height: 80px; }
 
 .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.store-hint { font-size: 12px; color: var(--muted); line-height: 1.7; margin-top: 4px; }
 .country-btn {
   padding: 16px; border: 1px solid var(--line); background: #fff;
   cursor: pointer; font-family: inherit; font-size: 14px;
