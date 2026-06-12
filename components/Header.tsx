@@ -72,7 +72,19 @@ export function Header() {
             onClick={toggle}
             aria-label={t('開啟購物袋', 'Open bag')}
           >
-            {t('購物袋', 'BAG')}
+            <span className="bag-text">{t('購物袋', 'BAG')}</span>
+            <svg
+              className="bag-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 8h12l-1.2 12.2a1 1 0 0 1-1 .8H8.2a1 1 0 0 1-1-.8L6 8z" />
+              <path d="M9 10V7a3 3 0 0 1 6 0v3" />
+            </svg>
             {itemCount > 0 && <b className="bag-badge">{itemCount}</b>}
           </button>
           <button
