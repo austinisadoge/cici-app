@@ -11,9 +11,19 @@ import { CustomSection } from '@/components/sections/CustomSection'
 import { EditorialSection } from '@/components/sections/EditorialSection'
 import { PaymentShipping } from '@/components/sections/PaymentShipping'
 import { Newsletter } from '@/components/sections/Newsletter'
-import { bracelets, earrings } from '@/lib/products'
+import { fetchCatalog } from '@/lib/catalog'
 
-export default function HomePage() {
+// 商品來自 Supabase，業主後台改了要即時反映，不吃 build 時快取
+export const dynamic = 'force-dynamic'
+
+export default async function HomePage() {
+  const catalog = await fetchCatalog()
+  const bracelets = catalog.filter(p => p.category === 'braided-bracelets')
+  const earrings = catalog.filter(p => p.category === 'earrings')
+  const others = catalog.filter(
+    p => p.category !== 'braided-bracelets' && p.category !== 'earrings'
+  )
+
   return (
     <>
       <Header />
@@ -35,6 +45,15 @@ export default function HomePage() {
         viewAll={{ zh: '查看全部耳飾 →', en: 'View all earrings →' }}
         products={earrings}
       />
+      {others.length > 0 && (
+        <ProductSection
+          id="more"
+          kicker={{ zh: '更多作品', en: 'More Pieces' }}
+          title={{ zh: '項鍊．掛飾．小物', en: 'Necklaces, Charms & More' }}
+          viewAll={{ zh: '查看全部 →', en: 'View all →' }}
+          products={others}
+        />
+      )}
       <CustomSection />
       <EditorialSection />
       <PaymentShipping />

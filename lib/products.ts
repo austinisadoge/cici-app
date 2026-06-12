@@ -94,7 +94,7 @@ export type Product = {
   name: { zh: string; en: string }
   meta: { zh: string; en: string }
   price: { twd: number; myr: number }
-  stock: 'in-stock' | 'made-to-order'
+  stock: 'in-stock' | 'made-to-order' | 'sold-out'
   isNew?: boolean
   image: string
 }

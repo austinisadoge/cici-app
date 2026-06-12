@@ -1,7 +1,7 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
-import { useCart, findProduct } from '@/lib/cart'
+import { useCart } from '@/lib/cart'
 import { calcShipping, amountToFreeShipping } from '@/lib/shipping'
 
 export function CartDrawer() {
@@ -60,24 +60,22 @@ export function CartDrawer() {
                 </div>
               )}
               {items.map(item => {
-                const p = findProduct(item.productId)
-                if (!p) return null
-                const unitPrice = cur === 'rm' ? p.price.myr : p.price.twd
+                const unitPrice = cur === 'rm' ? item.price.myr : item.price.twd
                 return (
                   <div key={item.productId} className="drawer-item">
-                    <img src={p.image} alt={t(p.name.zh, p.name.en)} />
+                    <img src={item.image} alt={t(item.name.zh, item.name.en)} />
                     <div className="drawer-item-body">
                       <div className="drawer-item-name">
-                        {t(p.name.zh, p.name.en)}
+                        {t(item.name.zh, item.name.en)}
                       </div>
                       <div className="drawer-item-meta">
-                        {t(p.meta.zh, p.meta.en)}
+                        {t(item.meta.zh, item.meta.en)}
                       </div>
                       <div className="drawer-item-foot">
                         <div className="qty">
                           <button
                             type="button"
-                            onClick={() => updateQuantity(p.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                             aria-label="−"
                           >
                             −
@@ -85,7 +83,7 @@ export function CartDrawer() {
                           <span>{item.quantity}</span>
                           <button
                             type="button"
-                            onClick={() => updateQuantity(p.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.productId, item.quantity + 1)}
                             aria-label="+"
                           >
                             +
@@ -98,7 +96,7 @@ export function CartDrawer() {
                       <button
                         type="button"
                         className="drawer-item-remove"
-                        onClick={() => remove(p.id)}
+                        onClick={() => remove(item.productId)}
                       >
                         {t('移除', 'Remove')}
                       </button>

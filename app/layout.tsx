@@ -12,7 +12,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="zh-Hant">
       <body>
         <Providers>{children}</Providers>
       </body>

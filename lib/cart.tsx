@@ -7,18 +7,23 @@ import {
   useState,
   ReactNode,
 } from 'react'
-import { products, Product } from './products'
+import type { Product } from './products'
 
+// 快照式購物車：加入當下記住名稱／價格／圖片，
+// 商品來源（Supabase）變動或下架，購物袋仍能正常顯示結帳。
 export type CartItem = {
-  productId: string
+  productId: string // slug
   quantity: number
-  variants?: Record<string, string>
+  name: { zh: string; en: string }
+  meta: { zh: string; en: string }
+  price: { twd: number; myr: number }
+  image: string
 }
 
 interface CartContextValue {
   items: CartItem[]
   itemCount: number
-  add: (productId: string, quantity?: number) => void
+  add: (product: Product, quantity?: number) => void
   remove: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clear: () => void
@@ -30,26 +35,26 @@ interface CartContextValue {
 }
 
 const Ctx = createContext<CartContextValue | null>(null)
-const STORAGE_KEY = 'cici-cart-v1'
+const STORAGE_KEY = 'cici-cart-v2'
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [hydrated, setHydrated] = useState(false)
 
-  // Load from localStorage on mount
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (raw) {
         const parsed = JSON.parse(raw)
-        if (Array.isArray(parsed)) setItems(parsed)
+        if (Array.isArray(parsed)) {
+          setItems(parsed.filter(i => i?.productId && i?.price))
+        }
       }
     } catch {}
     setHydrated(true)
   }, [])
 
-  // Persist
   useEffect(() => {
     if (!hydrated) return
     try {
@@ -57,17 +62,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
     } catch {}
   }, [items, hydrated])
 
-  const add = (productId: string, quantity = 1) => {
+  const add = (product: Product, quantity = 1) => {
     setItems(curr => {
-      const existing = curr.find(i => i.productId === productId)
+      const existing = curr.find(i => i.productId === product.id)
       if (existing) {
         return curr.map(i =>
-          i.productId === productId
+          i.productId === product.id
             ? { ...i, quantity: i.quantity + quantity }
             : i
         )
       }
-      return [...curr, { productId, quantity }]
+      return [
+        ...curr,
+        {
+          productId: product.id,
+          quantity,
+          name: product.name,
+          meta: product.meta,
+          price: product.price,
+          image: product.image,
+        },
+      ]
     })
   }
 
@@ -88,14 +103,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clear = () => setItems([])
 
   const subtotal = items.reduce(
-    (acc, item) => {
-      const p = products.find(p => p.id === item.productId)
-      if (!p) return acc
-      return {
-        twd: acc.twd + p.price.twd * item.quantity,
-        myr: acc.myr + p.price.myr * item.quantity,
-      }
-    },
+    (acc, item) => ({
+      twd: acc.twd + item.price.twd * item.quantity,
+      myr: acc.myr + item.price.myr * item.quantity,
+    }),
     { twd: 0, myr: 0 }
   )
 
@@ -126,8 +137,4 @@ export function useCart() {
   const c = useContext(Ctx)
   if (!c) throw new Error('useCart must be used within CartProvider')
   return c
-}
-
-export function findProduct(id: string): Product | undefined {
-  return products.find(p => p.id === id)
 }

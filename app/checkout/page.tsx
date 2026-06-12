@@ -3,7 +3,7 @@
 import { useState, FormEvent, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useI18n } from '@/lib/i18n'
-import { useCart, findProduct } from '@/lib/cart'
+import { useCart } from '@/lib/cart'
 import { calcShipping } from '@/lib/shipping'
 import { Header } from '@/components/Header'
 
@@ -147,14 +147,12 @@ export default function CheckoutPage() {
             <h2 className="form-title">{t('訂單明細', 'Order summary')}</h2>
             <div className="summary-items">
               {items.map(it => {
-                const p = findProduct(it.productId)
-                if (!p) return null
-                const unit = country === 'MY' ? p.price.myr : p.price.twd
+                const unit = country === 'MY' ? it.price.myr : it.price.twd
                 return (
                   <div key={it.productId} className="summary-item">
-                    <img src={p.image} alt="" />
+                    <img src={it.image} alt="" />
                     <div className="summary-item-body">
-                      <div className="summary-item-name">{t(p.name.zh, p.name.en)}</div>
+                      <div className="summary-item-name">{t(it.name.zh, it.name.en)}</div>
                       <div className="summary-item-meta">× {it.quantity}</div>
                     </div>
                     <div className="summary-item-price">{symbol} {(unit * it.quantity).toLocaleString()}</div>

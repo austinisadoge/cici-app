@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { getServiceClient } from '@/lib/supabase'
-import { products } from '@/lib/products'
 import { generateOrderNumber, paymentInstructions } from '@/lib/order'
 import { sendOrderConfirmation } from '@/lib/email'
 import { calcShipping } from '@/lib/shipping'
@@ -36,6 +35,20 @@ export async function POST(req: Request) {
     const cur: 'rm' | 'nt' = currency === 'MYR' ? 'rm' : 'nt'
     const lang: 'zh' | 'en' = language === 'zh' ? 'zh' : 'en'
 
+    // 價格從資料庫查，不信任前端送來的數字
+    const sb = getServiceClient()
+    const slugs = (items as Array<{ productId: string }>).map(i => i.productId)
+    const { data: dbProducts, error: lookupError } = await sb
+      .from('products')
+      .select('id, slug, name_zh, name_en, price_twd, price_myr')
+      .in('slug', slugs)
+      .eq('is_active', true)
+    if (lookupError) {
+      console.error('[orders] product lookup failed:', lookupError)
+      return NextResponse.json({ error: 'Product lookup failed' }, { status: 500 })
+    }
+    const bySlug = new Map((dbProducts ?? []).map(p => [p.slug, p]))
+
     let subtotal = 0
     const orderItems: Array<{
       product_id: string
@@ -45,15 +58,16 @@ export async function POST(req: Request) {
     }> = []
 
     for (const it of items as Array<{ productId: string; quantity: number }>) {
-      const p = products.find(p => p.id === it.productId)
+      const p = bySlug.get(it.productId)
       if (!p) continue
-      const unitPrice = currency === 'MYR' ? p.price.myr : p.price.twd
-      subtotal += unitPrice * it.quantity
+      const qty = Math.max(1, Math.min(99, Math.floor(Number(it.quantity)) || 1))
+      const unitPrice = currency === 'MYR' ? p.price_myr : p.price_twd
+      subtotal += unitPrice * qty
       orderItems.push({
         product_id: p.id,
-        product_name_snapshot: lang === 'zh' ? p.name.zh : p.name.en,
+        product_name_snapshot: lang === 'zh' ? p.name_zh : p.name_en,
         unit_price: unitPrice,
-        quantity: it.quantity,
+        quantity: qty,
       })
     }
 
@@ -67,7 +81,6 @@ export async function POST(req: Request) {
 
     let orderId: string | null = null
     try {
-      const sb = getServiceClient()
       const { data: order, error } = await sb
         .from('orders')
         .insert({
@@ -91,18 +104,8 @@ export async function POST(req: Request) {
 
       if (error) throw error
       orderId = order.id
-      // lib/products 的 id 是 slug（文字），order_items.product_id 是 uuid，先查映射
-      const slugs = orderItems.map(i => i.product_id)
-      const { data: dbProducts } = await sb
-        .from('products')
-        .select('id, slug')
-        .in('slug', slugs)
-      const idBySlug = new Map((dbProducts ?? []).map(r => [r.slug, r.id]))
-      const itemsRows = orderItems.map(i => ({
-        ...i,
-        product_id: idBySlug.get(i.product_id) ?? null,
-        order_id: orderId,
-      }))
+      // orderItems 的 product_id 已是資料庫 uuid
+      const itemsRows = orderItems.map(i => ({ ...i, order_id: orderId }))
       const { error: ie } = await sb.from('order_items').insert(itemsRows)
       if (ie) throw ie
     } catch (e) {

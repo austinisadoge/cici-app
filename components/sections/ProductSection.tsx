@@ -33,25 +33,29 @@ export function ProductSection({ id, kicker, title, viewAll, products }: Props) 
             <div key={p.id} className="card">
               <div className="ph">
                 <span className={`badge ${p.isNew ? 'dark' : ''}`}>
-                  {p.isNew
-                    ? t('新品', 'New')
-                    : p.stock === 'made-to-order'
-                      ? t('客製訂製', 'Made to order')
-                      : t('現貨', 'In stock')}
+                  {p.stock === 'sold-out'
+                    ? t('售罄', 'Sold out')
+                    : p.isNew
+                      ? t('新品', 'New')
+                      : p.stock === 'made-to-order'
+                        ? t('客製訂製', 'Made to order')
+                        : t('現貨', 'In stock')}
                 </span>
                 <img src={p.image} alt={t(p.name.zh, p.name.en)} />
-                <button
-                  type="button"
-                  className="card-add"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    add(p.id)
-                    open()
-                  }}
-                  aria-label={t('加入購物袋', 'Add to bag')}
-                >
-                  +
-                </button>
+                {p.stock !== 'sold-out' && (
+                  <button
+                    type="button"
+                    className="card-add"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      add(p)
+                      open()
+                    }}
+                    aria-label={t('加入購物袋', 'Add to bag')}
+                  >
+                    +
+                  </button>
+                )}
               </div>
               <div className="card-series">
                 {t(seriesById(p.series).name.zh, seriesById(p.series).name.en)}
