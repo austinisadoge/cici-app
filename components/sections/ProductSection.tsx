@@ -15,9 +15,10 @@ interface Props {
   viewAll?: Lex
   viewAllHref?: string
   products: Product[]
+  compact?: boolean
 }
 
-export function ProductSection({ id, kicker, title, viewAll, viewAllHref, products }: Props) {
+export function ProductSection({ id, kicker, title, viewAll, viewAllHref, products, compact }: Props) {
   const { t } = useI18n()
   const { add, open } = useCart()
   return (
@@ -42,7 +43,7 @@ export function ProductSection({ id, kicker, title, viewAll, viewAllHref, produc
             )}
           </div>
         )}
-        <div className="grid-3">
+        <div className={compact ? 'grid-compact' : 'grid-3'}>
           {products.map(p => (
             <div key={p.id} className="card">
               <div className="ph">

@@ -43,7 +43,7 @@ export default async function ShopPage({
     <>
       <Header />
       <main>
-        <ProductSection id="shop" kicker={kicker} title={title} products={filtered} />
+        <ProductSection id="shop" kicker={kicker} title={title} products={filtered} compact />
       </main>
       <Footer />
       <CartDrawer />

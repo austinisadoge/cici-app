@@ -195,11 +195,12 @@ button { font-family: inherit; }
 .sec-head .view-all:hover { color: var(--ink); border-color: var(--ink); }
 
 /* PRODUCT GRID */
-.grid-3 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
+/* 首頁精選：3 欄大卡（原本的優雅版）*/
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 .card { cursor: pointer; }
 .card .ph {
-  aspect-ratio: 1/1; overflow: hidden; background: var(--soft);
-  margin-bottom: 12px; position: relative;
+  aspect-ratio: 4/5; overflow: hidden; background: var(--soft);
+  margin-bottom: 18px; position: relative;
 }
 .card .ph img {
   width: 100%; height: 100%; object-fit: cover;
@@ -207,15 +208,23 @@ button { font-family: inherit; }
 }
 .card:hover .ph img { transform: scale(1.04); }
 .card-series {
-  font-size: 9px; color: var(--muted); letter-spacing: .18em;
-  text-transform: uppercase; margin-bottom: 4px;
+  font-size: 10px; color: var(--muted); letter-spacing: .2em;
+  text-transform: uppercase; margin-bottom: 6px;
 }
-.card .name { font-size: 13.5px; font-weight: 400; margin-bottom: 3px; letter-spacing: .01em; }
+.card .name { font-size: 15px; font-weight: 400; margin-bottom: 4px; letter-spacing: .01em; }
 .card .meta {
-  font-size: 11px; color: var(--muted); letter-spacing: .04em;
-  margin-bottom: 7px; text-transform: uppercase;
+  font-size: 12px; color: var(--muted); letter-spacing: .06em;
+  margin-bottom: 10px; text-transform: uppercase;
 }
-.card .price { font-size: 13px; color: var(--ink); font-weight: 400; }
+.card .price { font-size: 14px; color: var(--ink); font-weight: 400; }
+
+/* /shop 逛全部：4 欄小卡（FARFETCH 風）*/
+.grid-compact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
+.grid-compact .card .ph { aspect-ratio: 1/1; margin-bottom: 12px; }
+.grid-compact .card-series { font-size: 9px; letter-spacing: .18em; margin-bottom: 4px; }
+.grid-compact .card .name { font-size: 13.5px; margin-bottom: 3px; }
+.grid-compact .card .meta { font-size: 11px; letter-spacing: .04em; margin-bottom: 7px; }
+.grid-compact .card .price { font-size: 13px; }
 .badge {
   position: absolute; top: 14px; left: 14px; background: #fff;
   font-size: 10px; padding: 5px 10px; letter-spacing: .14em; text-transform: uppercase;
@@ -466,7 +475,8 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .fifty { grid-template-columns: 1fr; }
   .fifty .img { aspect-ratio: 4/5; }
   .fifty .text { padding: 60px 24px; }
-  .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 18px 14px; }
+  .grid-3 { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-compact { grid-template-columns: repeat(3, 1fr); gap: 18px 14px; }
   .series-grid { grid-template-columns: 1fr 1fr; }
   .series-card:last-child { grid-column: 1 / -1; }
   .third { grid-template-columns: 1fr; }
@@ -502,13 +512,16 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .btn-row { gap: 16px; }
   .sec { padding: 64px 0; }
   .sec-head h2 { font-size: 30px; }
-  .grid-3 { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+  .grid-3 { grid-template-columns: 1fr; gap: 28px; }
+  .grid-compact { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+  .grid-compact .card .name { font-size: 13px; }
+  .grid-compact .card .price { font-size: 12.5px; }
+  .grid-compact .card-series { font-size: 8.5px; }
+  .grid-compact .card .meta { display: none; }
   .series-grid { grid-template-columns: 1fr; }
   .series-card { padding: 28px 24px; }
-  .card .name { font-size: 13px; }
-  .card .price { font-size: 12.5px; }
-  .card-series { font-size: 8.5px; }
-  .card .meta { display: none; }
+  .card .name { font-size: 16px; }
+  .card .price { font-size: 15px; }
   .large-hero { height: auto; min-height: 480px; }
   .large-hero .overlay { padding: 40px 20px; gap: 20px; }
   .large-hero h2 { font-size: 34px; line-height: 1.15; }
