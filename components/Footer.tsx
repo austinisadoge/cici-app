@@ -51,9 +51,14 @@ export function Footer() {
                   Instagram · @cicidailyjewelry
                 </a>
               </li>
-              <li>LINE @cici.handmade</li>
-              <li>WhatsApp</li>
-              <li>hello@cici.studio</li>
+              <li>
+                <a href="https://line.me/R/ti/p/~0968827209" target="_blank" rel="noopener noreferrer">
+                  LINE · 0968827209
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hello@cicidailystudio.com">hello@cicidailystudio.com</a>
+              </li>
             </ul>
           </div>
         </div>
