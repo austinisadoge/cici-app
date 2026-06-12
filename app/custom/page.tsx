@@ -131,7 +131,7 @@ export default function CustomPage() {
                 onChange={set('colors')}
               />
               <input
-                placeholder={t('寶石或材質偏好（沒有想法可空白）', 'Stone / material preference (optional)')}
+                placeholder={t('來料訂製：想帶來的珍藏（玉珮、礦石、吊墜…選填）', 'Re-weave your own piece (jade, stone, pendant… optional)')}
                 value={form.stone}
                 onChange={set('stone')}
               />

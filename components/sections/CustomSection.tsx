@@ -13,24 +13,24 @@ export function CustomSection() {
         <span className="kicker">{t('為你量身', 'Made for you')}</span>
         <h2 className="serif">
           {t(
-            '選色．選石．編你的故事。',
-            'Choose your colours, your stone, your story.'
+            '選你的色，帶你的料，編你的故事。',
+            'Your colours, your material, your story.'
           )}
         </h2>
         <p>
           {t(
-            '找不到喜歡的配色？告訴我們你想要的色系、尺寸與寶石，匠人為你親手編一件獨一無二的作品。從下單到出貨約 14 天。',
-            'Cannot find the colour you love? Tell us your palette, size and stone, and an artisan will weave one for you, by hand. Allow 14 days from order to shipment.'
+            '想要專屬的色系與尺寸，或把你珍藏的玉珮、礦石、吊墜交給我們，以同款工法重新編織，延續它的故事與陪伴。',
+            'Want your own palette and size, or send us your treasured jade, stone or pendant to re-weave in the same style, continuing its story and companionship.'
           )}
         </p>
         <div className="steps">
           <div>
             <b className="serif">01</b>
-            <span>{t('選擇配色', 'Select colours')}</span>
+            <span>{t('配色與尺寸', 'Colours & size')}</span>
           </div>
           <div>
             <b className="serif">02</b>
-            <span>{t('挑一顆石', 'Pick a stone')}</span>
+            <span>{t('來料重織', 'Re-weave your piece')}</span>
           </div>
           <div>
             <b className="serif">03</b>
