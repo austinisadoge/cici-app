@@ -5,7 +5,7 @@ import { useI18n } from '@/lib/i18n'
 export function PaymentShipping() {
   const { t } = useI18n()
   return (
-    <section className="pay-sec">
+    <section className="pay-sec" id="payment">
       <div className="container-x">
         <div className="sec-head pay-head">
           <span className="kicker">{t('付款與寄送', 'Payment & Shipping')}</span>

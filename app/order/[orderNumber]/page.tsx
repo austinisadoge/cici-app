@@ -12,6 +12,7 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
   const search = useSearchParams()
   const { t } = useI18n()
   const paymentMethod = (search.get('p') as 'tng' | 'bank_transfer') || 'bank_transfer'
+  const [email, setEmail] = useState('')
   const [last5, setLast5] = useState('')
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -25,7 +26,7 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
       const res = await fetch(`/api/orders/${orderNumber}/report-payment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ last5, notes }),
+        body: JSON.stringify({ email, last5, notes }),
       })
       if (!res.ok) {
         const d = await res.json()
@@ -87,6 +88,13 @@ export default function OrderPage({ params }: { params: Promise<{ orderNumber: s
 
         <form onSubmit={onSubmit} className="report-form">
           <h2 className="form-title">{t('回填付款', 'Report Payment')}</h2>
+          <input
+            type="email"
+            placeholder={t('下單時的 Email（驗證用）', 'Email used at checkout (for verification)')}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
           <input
             type="text"
             placeholder={t('轉帳末五碼', 'Last 5 digits')}

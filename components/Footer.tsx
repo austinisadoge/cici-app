@@ -33,10 +33,10 @@ export function Footer() {
           <div>
             <h4>{t('客服', 'Help')}</h4>
             <ul>
-              <li>{t('付款方式', 'Payment')}</li>
-              <li>{t('寄送說明', 'Shipping')}</li>
-              <li>{t('退換貨', 'Returns')}</li>
-              <li>{t('客製須知', 'Custom Order Guide')}</li>
+              <li><a href="/#payment">{t('付款方式', 'Payment')}</a></li>
+              <li><a href="/#payment">{t('寄送說明', 'Shipping')}</a></li>
+              <li><a href="/returns">{t('退換貨', 'Returns')}</a></li>
+              <li><a href="/custom">{t('客製須知', 'Custom Order Guide')}</a></li>
             </ul>
           </div>
           <div>
@@ -64,7 +64,13 @@ export function Footer() {
               '© 2026 CiCi DAILY STUDIO · HANDMADE IN TAIWAN'
             )}
           </span>
-          <span>{t('隱私．條款', 'PRIVACY · TERMS')}</span>
+          <span>
+            <a href="/privacy">{t('隱私', 'PRIVACY')}</a>
+            {' · '}
+            <a href="/terms">{t('條款', 'TERMS')}</a>
+            {' · '}
+            <a href="/returns">{t('退換貨', 'RETURNS')}</a>
+          </span>
         </div>
       </div>
     </footer>

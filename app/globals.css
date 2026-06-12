@@ -355,6 +355,13 @@ button { font-family: inherit; }
   font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
   cursor: pointer; padding: 0 4px; font-family: inherit;
 }
+.news-done {
+  font-size: 14px; letter-spacing: .06em; color: #fff;
+  padding: 14px 0; border-top: 1px solid rgba(255,255,255,.3);
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  max-width: 480px; margin: 0 auto;
+}
+.news-error { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 12px; }
 
 /* FOOTER */
 footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32px; }
@@ -503,6 +510,43 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   .music-toggle { bottom: 20px; right: 16px; width: 42px; height: 42px; }
   .music-toggle svg { width: 16px; height: 16px; }
   .music-tip { display: none; }
+}
+
+/* === INSTAGRAM BAND === */
+.ig-band { padding: 100px 0; background: var(--warm); }
+.ig-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.ig-cell {
+  display: block; aspect-ratio: 1/1; overflow: hidden;
+}
+.ig-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s var(--tx), opacity .3s var(--tx);
+}
+.ig-cell:hover img { transform: scale(1.05); opacity: .88; }
+.ig-cta { text-align: center; margin-top: 36px; }
+@media (max-width: 600px) {
+  .ig-band { padding: 64px 0; }
+  .ig-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
+
+/* === LEGAL PAGES === */
+.legal-wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 120px; }
+.legal-wrap h1 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 400; font-size: clamp(30px, 4vw, 42px); margin-bottom: 8px;
+}
+.legal-updated { font-size: 12px; color: var(--muted); letter-spacing: .08em; margin-bottom: 48px; }
+.legal-sec { margin-bottom: 36px; }
+.legal-sec h2 {
+  font-size: 15px; font-weight: 500; letter-spacing: .06em;
+  margin-bottom: 12px; color: var(--ink);
+}
+.legal-sec p { font-size: 14.5px; color: var(--muted); line-height: 1.9; margin-bottom: 10px; }
+.legal-contact {
+  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--muted); line-height: 1.8;
 }
 
 /* === PRODUCT DETAIL === */

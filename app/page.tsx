@@ -10,6 +10,7 @@ import { LargeHero } from '@/components/sections/LargeHero'
 import { CustomSection } from '@/components/sections/CustomSection'
 import { EditorialSection } from '@/components/sections/EditorialSection'
 import { PaymentShipping } from '@/components/sections/PaymentShipping'
+import { InstagramBand } from '@/components/sections/InstagramBand'
 import { Newsletter } from '@/components/sections/Newsletter'
 import { fetchCatalog } from '@/lib/catalog'
 
@@ -60,6 +61,7 @@ export default async function HomePage() {
       <CustomSection />
       <EditorialSection />
       <PaymentShipping />
+      <InstagramBand />
       <Newsletter />
       <Footer />
       <MusicButton />
