@@ -9,8 +9,9 @@ export default function NewProductPage() {
       <div className="admin-nav">
         <h1 className="serif">CiCi Admin</h1>
         <nav>
-          <Link href="/admin/orders">Orders</Link>
-          <Link href="/admin/products" className="active">Products</Link>
+          <Link href="/admin/dashboard">總覽</Link>
+          <Link href="/admin/orders">訂單</Link>
+          <Link href="/admin/products" className="active">商品</Link>
         </nav>
       </div>
       <div className="admin-section-head">

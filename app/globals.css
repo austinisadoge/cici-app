@@ -784,6 +784,42 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
   padding: 8px;
 }
 
+/* === ADMIN DASHBOARD === */
+.dash-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 12px;
+}
+.dash-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 22px 20px; display: block; color: var(--ink);
+}
+.dash-num { font-size: 30px; font-weight: 300; letter-spacing: -.01em; margin-bottom: 6px; }
+.dash-num.serif { font-family: 'Cormorant Garamond','Noto Serif TC',serif; font-size: 26px; }
+.dash-label { font-size: 13px; color: var(--ink); }
+.dash-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.dash-todo { border-color: #C9A24B; background: #FDFAF2; transition: .2s var(--tx); }
+.dash-todo:hover { background: #FAF4E4; }
+.dash-todo .dash-num { color: #8C6242; font-weight: 400; }
+.dash-section-title {
+  font-size: 13px; letter-spacing: .12em; font-weight: 500;
+  margin: 32px 0 14px; color: var(--ink);
+}
+.dash-top { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.dash-top-row {
+  display: grid; grid-template-columns: 32px 1fr auto; align-items: center;
+  gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--line); font-size: 14px;
+}
+.dash-top-row:last-child { border-bottom: none; }
+.dash-top-rank {
+  font-family: 'Cormorant Garamond',serif; font-size: 18px; color: var(--muted);
+}
+.dash-top-name { color: var(--ink); }
+.dash-top-qty { color: var(--muted); font-size: 13px; }
+@media (max-width: 700px) {
+  .dash-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .dash-num { font-size: 26px; }
+  .dash-num.serif { font-size: 22px; }
+}
+
 /* === ADMIN PRODUCT FORM === */
 .admin-form { max-width: 760px; }
 .admin-form-section {
