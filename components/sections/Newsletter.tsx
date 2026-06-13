@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { useI18n } from '@/lib/i18n'
+import { pixelSubscribe } from '@/lib/fbpixel'
 
 export function Newsletter() {
   const { lang, t } = useI18n()
@@ -19,6 +20,7 @@ export function Newsletter() {
         body: JSON.stringify({ email, language: lang }),
       })
       if (!res.ok) throw new Error('failed')
+      pixelSubscribe()
       setState('done')
       setEmail('')
     } catch {

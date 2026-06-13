@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, FormEvent, useEffect } from 'react'
+import { useState, FormEvent, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
 import { calcShipping } from '@/lib/shipping'
+import { pixelInitiateCheckout, pixelPurchase } from '@/lib/fbpixel'
 import { Header } from '@/components/Header'
 import { TW_DISTRICTS, TW_CITIES } from '@/lib/tw-districts'
 
@@ -38,6 +39,18 @@ export default function CheckoutPage() {
       setCur('nt')
     }
   }, [country, setCur])
+
+  // 開始結帳事件：購物袋從 localStorage 載入後（可能晚一拍），第一次有商品時觸發一次
+  const checkoutTracked = useRef(false)
+  useEffect(() => {
+    if (checkoutTracked.current || items.length === 0) return
+    checkoutTracked.current = true
+    pixelInitiateCheckout({
+      ids: items.map(i => i.productId),
+      numItems: items.reduce((a, i) => a + i.quantity, 0),
+      value: subtotal.twd,
+    })
+  }, [items, subtotal.twd])
 
   if (items.length === 0) {
     return (
@@ -90,6 +103,12 @@ export default function CheckoutPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Failed to create order')
+      pixelPurchase({
+        ids: items.map(i => i.productId),
+        numItems: items.reduce((a, i) => a + i.quantity, 0),
+        value: total,
+        currency: country === 'MY' ? 'MYR' : 'TWD',
+      })
       clear()
       router.push(`/order/${data.orderNumber}?p=${paymentMethod}`)
     } catch (e) {

@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer'
 import { CartDrawer } from '@/components/CartDrawer'
 import { useI18n } from '@/lib/i18n'
 import { CATEGORIES } from '@/lib/products'
+import { pixelLead } from '@/lib/fbpixel'
 
 export default function CustomPage() {
   const { lang, t } = useI18n()
@@ -46,6 +47,7 @@ export default function CustomPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Failed')
+      pixelLead('Custom Order')
       setDone(true)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed')

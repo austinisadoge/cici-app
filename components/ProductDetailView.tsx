@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useI18n } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
+import { pixelViewContent } from '@/lib/fbpixel'
 import { seriesById, categoryById, type Product } from '@/lib/products'
 import type { ProductDetail } from '@/lib/catalog'
 
@@ -12,6 +13,14 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
   const { add, open } = useCart()
   const [selected, setSelected] = useState(0)
   const [added, setAdded] = useState(false)
+
+  useEffect(() => {
+    pixelViewContent({
+      id: product.id,
+      name: product.name.zh,
+      value: product.price.twd,
+    })
+  }, [product.id, product.name.zh, product.price.twd])
 
   const s = seriesById(product.series)
   const c = categoryById(product.category)

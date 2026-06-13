@@ -8,6 +8,7 @@ import {
   ReactNode,
 } from 'react'
 import type { Product } from './products'
+import { pixelAddToCart } from './fbpixel'
 
 // 快照式購物車：加入當下記住名稱／價格／圖片，
 // 商品來源（Supabase）變動或下架，購物袋仍能正常顯示結帳。
@@ -63,6 +64,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, hydrated])
 
   const add = (product: Product, quantity = 1) => {
+    pixelAddToCart({
+      id: product.id,
+      name: product.name.zh,
+      value: product.price.twd * quantity,
+      quantity,
+    })
     setItems(curr => {
       const existing = curr.find(i => i.productId === product.id)
       if (existing) {
