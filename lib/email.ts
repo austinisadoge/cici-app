@@ -1,4 +1,5 @@
 import { Resend } from 'resend'
+import { BRAND } from './brand'
 
 let _resend: Resend | null = null
 function getResend(): Resend | null {
@@ -13,7 +14,7 @@ function getResend(): Resend | null {
 }
 
 // 已在 Resend 驗證 cicidailystudio.com，預設用正式網域寄
-const FROM = process.env.RESEND_FROM || 'CiCi Daily Studio <hello@cicidailystudio.com>'
+const FROM = process.env.RESEND_FROM || `${BRAND.nameFull} <${BRAND.email}>`
 
 export type OrderEmailData = {
   to: string
@@ -54,22 +55,22 @@ export async function sendRawToOwner(subject: string, bodyHtml: string) {
 
 export async function sendOrderConfirmation(d: OrderEmailData) {
   const subj = d.language === 'zh'
-    ? `CiCi 訂單確認 #${d.orderNumber}`
-    : `CiCi Order Confirmation #${d.orderNumber}`
+    ? `${BRAND.name} 訂單確認 #${d.orderNumber}`
+    : `${BRAND.name} Order Confirmation #${d.orderNumber}`
   await send(d.to, subj, renderConfirm(d))
 }
 
 export async function sendPaymentConfirmed(d: OrderEmailData) {
   const subj = d.language === 'zh'
-    ? `CiCi 已收到您的款項 #${d.orderNumber}`
-    : `CiCi Payment received #${d.orderNumber}`
+    ? `${BRAND.name} 已收到您的款項 #${d.orderNumber}`
+    : `${BRAND.name} Payment received #${d.orderNumber}`
   await send(d.to, subj, renderPaid(d))
 }
 
 export async function sendShippingNotification(d: OrderEmailData) {
   const subj = d.language === 'zh'
-    ? `CiCi 您的包裹已寄出 #${d.orderNumber}`
-    : `CiCi Your order has shipped #${d.orderNumber}`
+    ? `${BRAND.name} 您的包裹已寄出 #${d.orderNumber}`
+    : `${BRAND.name} Your order has shipped #${d.orderNumber}`
   await send(d.to, subj, renderShipped(d))
 }
 
@@ -120,7 +121,7 @@ ${row('參考連結', d.reference)}
     : `<h2 style="font-family:Georgia,serif;font-weight:300;font-size:24px;">Hello, ${d.name}</h2>
 <p style="font-size:14px;line-height:1.8;">We have received your custom request. Our artisan will review your palette and details, and reply within <strong>1–2 business days</strong> to discuss the design and quote.</p>
 <p style="font-size:14px;line-height:1.8;">Custom pieces ship within 3–7 business days of your order. Thank you for giving handcraft its time.</p>`)
-  const ackSubj = zh ? 'CiCi 已收到您的客製需求' : 'CiCi has received your custom request'
+  const ackSubj = zh ? `${BRAND.name} 已收到您的客製需求` : `${BRAND.name} has received your custom request`
   await send(d.email, ackSubj, ackHtml)
 }
 
@@ -131,11 +132,11 @@ function wrap(body: string) {
 <body style="font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAFA;margin:0;padding:40px 20px;color:#171717;">
 <div style="max-width:560px;margin:0 auto;background:#fff;padding:48px 32px;border:1px solid #E5E5E5;">
 <div style="text-align:center;margin-bottom:32px;">
-<h1 style="font-family:Georgia,serif;font-weight:400;font-size:32px;letter-spacing:.16em;margin:0;">CiCi</h1>
-<div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#737373;margin-top:8px;">Daily Studio · Taiwan</div>
+<h1 style="font-family:Georgia,serif;font-weight:400;font-size:32px;letter-spacing:.16em;margin:0;">${BRAND.name}</h1>
+<div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#737373;margin-top:8px;">${BRAND.nameSub} · Taiwan</div>
 </div>
 ${body}
-<div style="margin-top:40px;padding-top:24px;border-top:1px solid #E5E5E5;text-align:center;font-size:11px;letter-spacing:.1em;color:#737373;">© 2026 CiCi Daily Studio · Handmade in Taiwan</div>
+<div style="margin-top:40px;padding-top:24px;border-top:1px solid #E5E5E5;text-align:center;font-size:11px;letter-spacing:.1em;color:#737373;">© 2026 ${BRAND.nameFull} · Handmade in Taiwan</div>
 </div></body></html>`
 }
 
@@ -164,7 +165,7 @@ ${itemsTable(d)}
 <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.7;white-space:pre-line;">${d.paymentInstructions || ''}</div>
 </div>
 <div style="text-align:center;margin:28px 0;">
-<a href="https://cicidailystudio.com/order/${d.orderNumber}?p=${d.paymentMethod}" style="display:inline-block;background:#171717;color:#ffffff;padding:15px 34px;font-size:13px;letter-spacing:.16em;text-decoration:none;">${zh ? '回填付款 ／ 查看訂單 →' : 'REPORT PAYMENT / VIEW ORDER →'}</a>
+<a href="${BRAND.url}/order/${d.orderNumber}?p=${d.paymentMethod}" style="display:inline-block;background:#171717;color:#ffffff;padding:15px 34px;font-size:13px;letter-spacing:.16em;text-decoration:none;">${zh ? '回填付款 ／ 查看訂單 →' : 'REPORT PAYMENT / VIEW ORDER →'}</a>
 </div>
 <p style="color:#737373;font-size:12px;line-height:1.7;text-align:center;">${zh ? '匯款／付款後，點上方按鈕回填末五碼即可。請保留這封信，隨時可以回來查看訂單。' : 'After paying, click the button above to report your last 5 digits. Keep this email to return to your order anytime.'}</p>
 <p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '收到您的款項後，我們會立即安排出貨。' : "Once we verify your payment, we'll prepare your order for shipping."}</p>`)
@@ -190,5 +191,5 @@ ${d.trackingNo ? `<div style="background:#171717;color:#fff;padding:20px;margin:
 <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:8px;">${zh ? '物流單號' : 'Tracking'}</div>
 <div style="font-size:18px;font-family:'SF Mono',monospace;letter-spacing:.05em;">${d.trackingNo}</div>
 </div>` : ''}
-<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? '感謝您讓 CiCi 進入您的生活。' : 'Thank you for letting CiCi into your life.'}</p>`)
+<p style="color:#737373;font-size:13px;line-height:1.7;">${zh ? `感謝您讓 ${BRAND.name} 進入您的生活。` : `Thank you for letting ${BRAND.name} into your life.`}</p>`)
 }

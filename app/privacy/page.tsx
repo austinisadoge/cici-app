@@ -1,6 +1,7 @@
 'use client'
 
 import { LegalLayout } from '@/components/LegalLayout'
+import { BRAND } from '@/lib/brand'
 
 export default function PrivacyPage() {
   return (
@@ -48,8 +49,8 @@ export default function PrivacyPage() {
           h: { zh: '您的權利', en: 'Your rights' },
           ps: [
             {
-              zh: '您可隨時來信 hello@cicidailystudio.com 查詢、更正或刪除您的個人資料，我們會於 14 天內處理。',
-              en: 'Email hello@cicidailystudio.com anytime to access, correct or delete your personal data. We will act within 14 days.',
+              zh: `您可隨時來信 ${BRAND.email} 查詢、更正或刪除您的個人資料，我們會於 14 天內處理。`,
+              en: `Email ${BRAND.email} anytime to access, correct or delete your personal data. We will act within 14 days.`,
             },
           ],
         },

@@ -1,8 +1,9 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
 
-const IG_URL = 'https://www.instagram.com/cicidailyjewelry/'
+const IG_URL = BRAND.instagramUrl
 
 const PHOTOS = [
   '/images/bracelet-sage.jpg',
@@ -18,7 +19,7 @@ export function InstagramBand() {
       <div className="container-x">
         <div className="sec-head pay-head" style={{ marginBottom: 40 }}>
           <span className="kicker">Instagram</span>
-          <h2 className="serif">@cicidailyjewelry</h2>
+          <h2 className="serif">@{BRAND.instagramHandle}</h2>
         </div>
         <div className="ig-grid">
           {PHOTOS.map(src => (

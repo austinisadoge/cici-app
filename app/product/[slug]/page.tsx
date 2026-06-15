@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import { CartDrawer } from '@/components/CartDrawer'
 import { ProductDetailView } from '@/components/ProductDetailView'
 import { fetchProductBySlug } from '@/lib/catalog'
+import { BRAND } from '@/lib/brand'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,8 +18,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const p = await fetchProductBySlug(slug)
-  if (!p) return { title: 'CiCi Daily Studio' }
-  const title = `${p.name.en} ${p.name.zh} · CiCi Daily Studio`
+  if (!p) return { title: BRAND.nameFull }
+  const title = `${p.name.en} ${p.name.zh} · ${BRAND.nameFull}`
   const description = p.meta.en || p.meta.zh || 'Handmade in Taiwan.'
   const img = p.images[0]
   return {
@@ -27,7 +28,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: img ? [img.startsWith('http') ? img : `https://cicidailystudio.com${img}`] : [],
+      images: img ? [img.startsWith('http') ? img : `${BRAND.url}${img}`] : [],
     },
   }
 }

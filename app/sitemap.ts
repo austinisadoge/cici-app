@@ -2,7 +2,9 @@ import type { MetadataRoute } from 'next'
 import { fetchCatalog } from '@/lib/catalog'
 import { SERIES, CATEGORIES } from '@/lib/products'
 
-const BASE = 'https://cicidailystudio.com'
+import { BRAND } from '@/lib/brand'
+
+const BASE = BRAND.url
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const catalog = await fetchCatalog()

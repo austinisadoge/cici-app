@@ -3,6 +3,7 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
 
 export default function GuidePage() {
   const { t } = useI18n()
@@ -131,8 +132,8 @@ export default function GuidePage() {
             </li>
             <li>
               {t('聯繫客服請私訊 Instagram：', 'Reach us on Instagram: ')}
-              <a href="https://www.instagram.com/cicidailyjewelry/" target="_blank" rel="noopener noreferrer">
-                @cicidailyjewelry
+              <a href={BRAND.instagramUrl} target="_blank" rel="noopener noreferrer">
+                @{BRAND.instagramHandle}
               </a>
             </li>
           </ol>
@@ -171,8 +172,8 @@ export default function GuidePage() {
 
         <div className="guide-contact">
           {t(
-            '還有問題嗎？歡迎透過 Instagram @cicidailyjewelry 私訊我們，客服時間每日 10:00 – 20:00。',
-            'More questions? Message us on Instagram @cicidailyjewelry, daily 10:00 AM – 8:00 PM.'
+            `還有問題嗎？歡迎透過 Instagram @${BRAND.instagramHandle} 私訊我們，客服時間每日 10:00 – 20:00。`,
+            `More questions? Message us on Instagram @${BRAND.instagramHandle}, daily 10:00 AM – 8:00 PM.`
           )}
         </div>
       </main>

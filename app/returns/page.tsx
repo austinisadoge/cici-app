@@ -1,6 +1,7 @@
 'use client'
 
 import { LegalLayout } from '@/components/LegalLayout'
+import { BRAND } from '@/lib/brand'
 
 export default function ReturnsPage() {
   return (
@@ -39,8 +40,8 @@ export default function ReturnsPage() {
           h: { zh: '瑕疵處理', en: 'Defects' },
           ps: [
             {
-              zh: '收到商品如有瑕疵，請於 7 天內拍照並來信 hello@cicidailystudio.com，我們會優先安排換新或修補，運費由我們負擔。',
-              en: 'If your piece arrives with a defect, photograph it and email hello@cicidailystudio.com within 7 days. We will replace or repair it first, shipping on us.',
+              zh: `收到商品如有瑕疵，請於 7 天內拍照並來信 ${BRAND.email}，我們會優先安排換新或修補，運費由我們負擔。`,
+              en: `If your piece arrives with a defect, photograph it and email ${BRAND.email} within 7 days. We will replace or repair it first, shipping on us.`,
             },
             {
               zh: '手工編織的紋理、色澤與礦石紋路本身略有差異，屬手作特性，不構成瑕疵。',

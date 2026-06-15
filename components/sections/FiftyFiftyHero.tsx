@@ -1,32 +1,38 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
+
+// 把英文第二行的 emWord 包成斜體
+function emphasize(line: string, word?: string) {
+  if (!word || !line.includes(word)) return line
+  const [before, after] = line.split(word)
+  return (
+    <>
+      {before}
+      <em>{word}</em>
+      {after}
+    </>
+  )
+}
 
 export function FiftyFiftyHero() {
   const { lang, t } = useI18n()
+  const title = lang === 'zh' ? BRAND.heroTitle.zh : BRAND.heroTitle.en
   return (
     <section className="fifty">
       <div className="img hero1" />
       <div className="text">
         <span className="kicker">
-          {t('二〇二六．春夏新作', 'Spring · Summer 2026')}
+          {t(BRAND.heroKicker.zh, BRAND.heroKicker.en)}
         </span>
         <h1 className="serif">
-          {lang === 'zh' ? (
-            <>
-              收藏生活中<br />的風景。
-            </>
-          ) : (
-            <>
-              Collecting the<br /><em>sceneries</em> of life.
-            </>
-          )}
+          {title[0]}
+          <br />
+          {lang === 'en' ? emphasize(title[1], BRAND.heroTitle.emWord) : title[1]}
         </h1>
         <p className="lead">
-          {t(
-            '透過編織、針線與顏料等多元媒材，將自然色彩、天然素材與礦石紋理，一件一件慢慢化為獨一無二的手工作品。',
-            'Through weaving, needlework and paint, natural colours, organic materials and mineral textures slowly become one-of-a-kind handmade pieces.'
-          )}
+          {t(BRAND.heroLead.zh, BRAND.heroLead.en)}
         </p>
         <div className="btn-row">
           <a className="btn" href="/shop">

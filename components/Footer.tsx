@@ -1,6 +1,7 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
 
 export function Footer() {
   const { t } = useI18n()
@@ -10,14 +11,11 @@ export function Footer() {
         <div className="foot">
           <div>
             <div className="brand-name">
-              CiCi
-              <span className="brand-name-sub">DAILY STUDIO</span>
+              {BRAND.name}
+              <span className="brand-name-sub">{BRAND.nameSub}</span>
             </div>
             <p className="brand-desc">
-              {t(
-                '透過編織、針線與顏料，收藏生活中的風景。運用大自然饋贈的禮物，創作兼具故事感與日常感的生活作品。',
-                'Collecting the sceneries of life through weaving, needlework and paint. Works made with gifts from nature, carrying both story and everyday ease.'
-              )}
+              {t(BRAND.footerDesc.zh, BRAND.footerDesc.en)}
             </p>
           </div>
           <div>
@@ -43,21 +41,17 @@ export function Footer() {
             <h4>{t('聯絡', 'Contact')}</h4>
             <ul>
               <li>
-                <a
-                  href="https://www.instagram.com/cicidailyjewelry/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram · @cicidailyjewelry
+                <a href={BRAND.instagramUrl} target="_blank" rel="noopener noreferrer">
+                  Instagram · @{BRAND.instagramHandle}
                 </a>
               </li>
               <li>
-                <a href="https://line.me/R/ti/p/~0968827209" target="_blank" rel="noopener noreferrer">
-                  LINE · 0968827209
+                <a href={BRAND.lineUrl} target="_blank" rel="noopener noreferrer">
+                  LINE · {BRAND.lineId}
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@cicidailystudio.com">hello@cicidailystudio.com</a>
+                <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
               </li>
             </ul>
           </div>
@@ -65,8 +59,8 @@ export function Footer() {
         <div className="foot-bot">
           <span>
             {t(
-              '© 2026 CiCi Daily Studio．台灣手作',
-              '© 2026 CiCi DAILY STUDIO · HANDMADE IN TAIWAN'
+              `© 2026 ${BRAND.nameFull}．台灣手作`,
+              `© 2026 ${BRAND.nameFull} · HANDMADE IN TAIWAN`
             )}
           </span>
           <span>

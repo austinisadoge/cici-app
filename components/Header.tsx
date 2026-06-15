@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useI18n, type Lang, type Currency } from '@/lib/i18n'
 import { useCart } from '@/lib/cart'
+import { BRAND } from '@/lib/brand'
 import { MegaMenu } from './MegaMenu'
 
 type DD = 'lang' | 'cur' | null
@@ -33,8 +34,8 @@ export function Header() {
           <a href="/#about">{t('理念', 'PHILOSOPHY')}</a>
         </div>
         <a href="/" className="nav-logo">
-          CiCi
-          <span className="nav-logo-sub">DAILY STUDIO</span>
+          {BRAND.name}
+          <span className="nav-logo-sub">{BRAND.nameSub}</span>
         </a>
         <div className="nav-right">
           {/* 語言 */}

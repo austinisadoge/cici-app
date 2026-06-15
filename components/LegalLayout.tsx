@@ -3,6 +3,7 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
 
 export type LegalSection = {
   h: { zh: string; en: string }
@@ -37,8 +38,8 @@ export function LegalLayout({
         ))}
         <div className="legal-contact">
           {t(
-            '任何問題，歡迎來信 hello@cicidailystudio.com 或透過 Instagram @cicidailyjewelry 聯繫。',
-            'Questions? Reach us at hello@cicidailystudio.com or on Instagram @cicidailyjewelry.'
+            `任何問題，歡迎來信 ${BRAND.email} 或透過 Instagram @${BRAND.instagramHandle} 聯繫。`,
+            `Questions? Reach us at ${BRAND.email} or on Instagram @${BRAND.instagramHandle}.`
           )}
         </div>
       </main>

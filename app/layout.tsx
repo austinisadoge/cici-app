@@ -2,20 +2,20 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import { Providers } from './providers'
+import { BRAND } from '@/lib/brand'
 import './globals.css'
 
-const META_PIXEL_ID = '1326900252206422'
+const META_PIXEL_ID = BRAND.metaPixelId
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cicidailystudio.com'),
+  metadataBase: new URL(BRAND.url),
   title: {
-    default: 'CiCi Daily Studio · Handmade in Taiwan',
-    template: '%s · CiCi Daily Studio',
+    default: `${BRAND.nameFull} · Handmade in Taiwan`,
+    template: `%s · ${BRAND.nameFull}`,
   },
-  description:
-    'Collecting the sceneries of life through weaving, needlework and paint. Handmade earrings, bracelets, necklaces and more, crafted in Taiwan.',
+  description: BRAND.seoDescription.en,
   openGraph: {
-    siteName: 'CiCi Daily Studio',
+    siteName: BRAND.nameFull,
     type: 'website',
     images: ['/images/hero-model-1.jpg'],
   },
