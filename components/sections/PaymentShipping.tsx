@@ -40,12 +40,12 @@ export function PaymentShipping() {
         <div className="ship-row">
           <div>
             <b className="serif">{t('台灣', 'Taiwan')}</b>
-            <span>{t('NT$60．滿 NT$1,500 免運', 'NT$60 · Free over NT$1,500')}</span>
+            <span>{t('運費 NT$60 起．滿 NT$3,000 免運', 'Shipping from NT$60 · Free over NT$3,000')}</span>
           </div>
           <div>
             <b className="serif">{t('馬來西亞', 'Malaysia')}</b>
             <span>
-              {t('RM35 起．滿 RM300 免運', 'From RM35 · Free over RM300')}
+              {t('運費 RM35 起．滿 RM300 免運', 'Shipping from RM35 · Free over RM300')}
             </span>
           </div>
           <div>

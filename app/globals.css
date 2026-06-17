@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Noto+Sans+TC:wght@200;300;400;500&family=Noto+Serif+TC:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+TC:wght@200;300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -52,13 +52,14 @@ button { font-family: inherit; }
 .nav-left a:hover { color: var(--ink); }
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 30px; font-weight: 400; letter-spacing: .16em; justify-self: center;
+  font-size: 32px; font-weight: 700; letter-spacing: .14em; justify-self: center;
   display: flex; flex-direction: column; align-items: center; line-height: 1;
+  color: var(--ink);
 }
 .nav-logo-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 8px; letter-spacing: .42em; color: var(--muted);
-  margin-top: 5px; font-weight: 500;
+  font-size: 8px; letter-spacing: .4em; color: var(--ink);
+  margin-top: 6px; font-weight: 700;
 }
 .nav-right {
   display: flex; gap: 20px; align-items: center; justify-self: end;
@@ -140,6 +141,22 @@ button { font-family: inherit; }
   color: var(--muted); padding: 14px; border-bottom: 1px solid var(--line);
 }
 
+/* FIVE BANNER（公告下、Hero 上的五格導覽）*/
+.five-banner { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--ink); }
+.five-cell {
+  display: flex; align-items: center; justify-content: center;
+  padding: 22px 8px; text-align: center;
+  color: #fff; font-size: 14px; letter-spacing: .14em;
+  border-right: 1px solid rgba(255,255,255,.14);
+  transition: background .2s var(--tx);
+  -webkit-tap-highlight-color: transparent;
+}
+.five-cell:last-child { border-right: none; }
+.five-cell:hover { background: #2c2c2c; }
+@media (max-width: 700px) {
+  .five-cell { padding: 14px 4px; font-size: 11px; letter-spacing: .04em; }
+}
+
 /* FIFTY FIFTY HERO */
 .fifty { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 120px); }
 .fifty .img { background-size: cover; background-position: center; background-repeat: no-repeat; }
@@ -155,6 +172,8 @@ button { font-family: inherit; }
   margin-bottom: 24px;
 }
 .fifty h1 em { font-style: italic; font-weight: 400; }
+.hero-title-1line { white-space: nowrap; font-size: clamp(34px, 4.6vw, 62px); }
+@media (max-width: 600px) { .hero-title-1line { white-space: normal; font-size: 38px; } }
 .fifty .lead {
   font-size: 16px; color: var(--muted); max-width: 440px;
   margin-bottom: 38px; font-weight: 300; line-height: 1.75;
@@ -302,6 +321,11 @@ button { font-family: inherit; }
   font-size: 16px; color: var(--muted); max-width: 540px;
   margin-bottom: 32px; line-height: 1.75;
 }
+.custom-subtitle {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-size: 20px; color: var(--brand-dk, #8C6242); letter-spacing: .04em;
+  margin-top: 6px; margin-bottom: 24px;
+}
 .third .right .steps { display: flex; gap: 40px; margin-bottom: 38px; flex-wrap: wrap; }
 .third .right .steps div { flex: 1; min-width: 140px; }
 .third .right .steps b {
@@ -404,7 +428,7 @@ button { font-family: inherit; }
 /* FOOTER */
 footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32px; }
 .foot {
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr;
   gap: 48px; margin-bottom: 60px;
 }
 .foot h4 {
@@ -419,13 +443,13 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
 .foot li:hover { color: var(--ink); }
 .foot .brand-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 42px; letter-spacing: .16em; font-weight: 400; margin-bottom: 18px;
-  display: flex; flex-direction: column; line-height: 1;
+  font-size: 42px; letter-spacing: .14em; font-weight: 700; margin-bottom: 18px;
+  display: flex; flex-direction: column; line-height: 1; color: var(--ink);
 }
 .brand-name-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: 10px; letter-spacing: .42em; color: var(--muted);
-  margin-top: 8px; font-weight: 500;
+  font-size: 10px; letter-spacing: .4em; color: var(--ink);
+  margin-top: 8px; font-weight: 700;
 }
 .foot p.brand-desc { font-size: 13px; color: var(--muted); max-width: 280px; line-height: 1.8; }
 .foot-bot {
@@ -624,6 +648,71 @@ footer { background: #fff; border-top: 1px solid var(--line); padding: 80px 0 32
 .ship-addr {
   display: block; font-size: 11px; color: var(--muted);
   margin-top: 4px; max-width: 220px; line-height: 1.5;
+}
+
+/* === CONTENT PAGES（品牌故事/風格地圖/設計架構/作品索引）=== */
+.content-wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; }
+.content-wide { max-width: 920px; }
+.content-wrap > .kicker { display: block; margin-bottom: 14px; }
+.content-wrap > h1 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif; font-weight: 600;
+  font-size: clamp(32px, 4.4vw, 50px); letter-spacing: .02em; margin-bottom: 16px; line-height: 1.15;
+}
+.content-intro { font-size: 15px; color: var(--muted); line-height: 1.85; margin-bottom: 48px; max-width: 620px; }
+.content-body p { font-size: 15.5px; color: var(--muted); line-height: 1.95; margin-bottom: 18px; }
+.content-sign { color: var(--ink); font-size: 20px; margin-top: 24px; }
+
+/* 風格地圖 */
+.smap-series { margin-bottom: 44px; }
+.smap-series > h2 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif; font-weight: 500;
+  font-size: 26px; letter-spacing: .06em; margin-bottom: 18px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--line);
+}
+.smap-group { display: grid; grid-template-columns: 92px 1fr; gap: 16px; margin-bottom: 16px; align-items: start; }
+.smap-group-title { font-size: 13px; color: var(--ink); font-weight: 500; padding-top: 5px; }
+.smap-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.smap-tag {
+  font-size: 13px; color: var(--muted); background: var(--warm);
+  padding: 5px 12px; border-radius: 999px;
+}
+
+/* 設計架構 */
+.design-series { margin-bottom: 40px; padding-bottom: 36px; border-bottom: 1px solid var(--line); }
+.design-series:last-child { border-bottom: none; }
+.design-series-head { display: grid; grid-template-columns: 56px 1fr; gap: 16px; margin-bottom: 18px; }
+.design-no { font-size: 30px; font-weight: 300; color: var(--line); }
+.design-series-head h2 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif; font-weight: 500;
+  font-size: 24px; letter-spacing: .04em; margin-bottom: 6px;
+}
+.design-tagline { font-size: 13px; color: var(--ink); margin-bottom: 6px; }
+.design-series-head p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.design-cats { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 72px; }
+.design-cat {
+  font-size: 13px; color: var(--muted); border: 1px solid var(--line);
+  padding: 7px 14px; border-radius: 999px; transition: .2s var(--tx);
+}
+.design-cat:hover { border-color: var(--ink); color: var(--ink); }
+
+/* 作品索引 */
+.works-series { margin-bottom: 40px; }
+.works-series > h2 {
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif; font-weight: 500;
+  font-size: 24px; letter-spacing: .06em; margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--line);
+}
+.works-list { list-style: none; columns: 2; column-gap: 40px; }
+.works-list li {
+  break-inside: avoid; display: flex; justify-content: space-between; align-items: baseline;
+  gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--soft); font-size: 14px;
+}
+.works-name { color: var(--ink); }
+.works-type { color: var(--muted); font-size: 12px; white-space: nowrap; }
+@media (max-width: 700px) {
+  .smap-group { grid-template-columns: 1fr; gap: 8px; }
+  .design-cats { padding-left: 0; }
+  .works-list { columns: 1; }
 }
 
 /* === SHOPPING GUIDE === */

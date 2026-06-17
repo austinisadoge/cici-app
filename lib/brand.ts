@@ -36,14 +36,14 @@ export const BRAND = {
 
   // ── 主視覺文案 ──
   announcement: {
-    zh: '滿 NT$1,500 免運．從台灣寄送全球',
-    en: 'Free shipping over NT$1,500 · Worldwide delivery from Taiwan',
+    zh: '滿 NT$3,000 免運．從台灣寄送全球',
+    en: 'Free shipping over NT$3,000 · Worldwide delivery from Taiwan',
   } as Lex,
   heroKicker: { zh: '二〇二六．春夏新作', en: 'Spring · Summer 2026' } as Lex,
-  // Hero 主標分兩行；英文版第二行的斜體字用 emWord 標出來
+  // Hero 主標一整排、不加句點；英文的斜體字用 emWord 標出來
   heroTitle: {
-    zh: ['收藏生活中', '的風景。'],
-    en: ['Collecting the', 'sceneries of life.'],
+    zh: '收藏生活中的風景',
+    en: 'Collecting the sceneries of life',
     emWord: 'sceneries',
   },
   heroLead: {

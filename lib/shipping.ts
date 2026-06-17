@@ -2,11 +2,11 @@ export type ShippingCurrency = 'nt' | 'rm'
 
 /**
  * 運費規則：
- *   台灣（NT$）：NT$60，滿 NT$1,500 免運
+ *   台灣（NT$）：NT$60 起，滿 NT$3,000 免運
  *   馬來西亞（RM）：RM35，滿 RM300 免運
  */
 const RULES = {
-  nt: { fee: 60, freeAt: 1500 },
+  nt: { fee: 60, freeAt: 3000 },
   rm: { fee: 35, freeAt: 300 },
 } as const
 

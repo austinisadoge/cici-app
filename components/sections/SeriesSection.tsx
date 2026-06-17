@@ -8,9 +8,8 @@ export function SeriesSection() {
   return (
     <section className="sec series-sec" id="series">
       <div className="container-x">
-        <div className="sec-head pay-head">
+        <div className="sec-head pay-head" style={{ marginBottom: 32 }}>
           <span className="kicker">{t('五大系列', 'Five Series')}</span>
-          <h2 className="serif">{t('收藏生活中的風景', 'Collecting the sceneries of life')}</h2>
         </div>
         <div className="series-grid">
           {SERIES.map(s => (

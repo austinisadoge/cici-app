@@ -26,10 +26,8 @@ export function FiftyFiftyHero() {
         <span className="kicker">
           {t(BRAND.heroKicker.zh, BRAND.heroKicker.en)}
         </span>
-        <h1 className="serif">
-          {title[0]}
-          <br />
-          {lang === 'en' ? emphasize(title[1], BRAND.heroTitle.emWord) : title[1]}
+        <h1 className="serif hero-title-1line">
+          {lang === 'en' ? emphasize(title, BRAND.heroTitle.emWord) : title}
         </h1>
         <p className="lead">
           {t(BRAND.heroLead.zh, BRAND.heroLead.en)}
@@ -37,9 +35,6 @@ export function FiftyFiftyHero() {
         <div className="btn-row">
           <a className="btn" href="/shop">
             {t('逛逛全系列 →', 'SHOP THE COLLECTION →')}
-          </a>
-          <a className="btn-line" href="#about">
-            {t('品牌故事', 'OUR STORY')}
           </a>
         </div>
       </div>

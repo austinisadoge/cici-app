@@ -172,8 +172,8 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
                 <b>{t('寄送', 'Shipping')}</b>
                 <span>
                   {t(
-                    '台灣 NT$60（滿 NT$1,500 免運）．馬來西亞 RM35 起（滿 RM300 免運）',
-                    'Taiwan NT$60 (free over NT$1,500) · Malaysia from RM35 (free over RM300)'
+                    '台灣運費 NT$60 起（滿 NT$3,000 免運）．馬來西亞 RM35 起（滿 RM300 免運）',
+                    'Taiwan from NT$60 (free over NT$3,000) · Malaysia from RM35 (free over RM300)'
                   )}
                 </span>
               </div>

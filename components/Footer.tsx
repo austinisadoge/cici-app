@@ -19,17 +19,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4>{t('五大系列', 'Series')}</h4>
-            <ul>
-              <li>{t('生活風景', 'Living Scenery')}</li>
-              <li>{t('礦石物語', 'Stone Stories')}</li>
-              <li>{t('日常拾光', 'Daily Glimmers')}</li>
-              <li>{t('祝福小物', 'Little Blessings')}</li>
-              <li>{t('生命力量', 'Living Force')}</li>
-            </ul>
-          </div>
-          <div>
-            <h4>{t('客服', 'Help')}</h4>
+            <h4>{t('服務', 'Service')}</h4>
             <ul>
               <li><a href="/guide">{t('購物說明', 'Shopping Guide')}</a></li>
               <li><a href="/guide#returns">{t('退換貨說明', 'Returns')}</a></li>
@@ -38,16 +28,11 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h4>{t('聯絡', 'Contact')}</h4>
+            <h4>{t('客服', 'Contact')}</h4>
             <ul>
               <li>
                 <a href={BRAND.instagramUrl} target="_blank" rel="noopener noreferrer">
                   Instagram · @{BRAND.instagramHandle}
-                </a>
-              </li>
-              <li>
-                <a href={BRAND.lineUrl} target="_blank" rel="noopener noreferrer">
-                  LINE · {BRAND.lineId}
                 </a>
               </li>
               <li>
