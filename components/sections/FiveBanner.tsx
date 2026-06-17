@@ -5,7 +5,7 @@ import { useI18n } from '@/lib/i18n'
 
 const CELLS = [
   { href: '/about', zh: '品牌故事', en: 'Our Story' },
-  { href: '/guide', zh: '品牌優勢', en: 'Why Us' },
+  { href: '/advantages', zh: '品牌優勢', en: 'Why Us' },
   { href: '/style-map', zh: '風格地圖', en: 'Style Map' },
   { href: '/design', zh: '設計架構', en: 'Design' },
   { href: '/works', zh: '作品索引', en: 'Works' },
