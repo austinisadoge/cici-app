@@ -4,7 +4,18 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { useI18n } from '@/lib/i18n'
 
-// 作品索引（業主提供）。type=品類；display=僅供展示
+// 作品索引（業主提供）。作品名保留中文，系列與品類雙語。
+const SERIES_EN: Record<string, string> = {
+  '生活風景': 'Living Scenery', '礦石物語': 'Stone Stories', '日常拾光': 'Daily Glimmers',
+  '祝福小物': 'Little Blessings', '生命力量': 'Living Force',
+}
+const TYPE_EN: Record<string, string> = {
+  '手繩': 'Braided Bracelet', '手鍊': 'Chain Bracelet', '手串': 'Beaded Bracelet',
+  '項鍊': 'Necklace', '耳飾': 'Earrings', '掛飾': 'Charm', '擺飾': 'Decor',
+  '扇箍': 'Fan Band', '包掛飾': 'Bag Charm', '包·車掛飾': 'Bag / Car Charm',
+  '車掛飾': 'Car Charm', '門掛飾': 'Door Charm',
+}
+
 type Work = { name: string; type: string; display?: boolean }
 const WORKS: { series: string; items: Work[] }[] = [
   {
@@ -91,12 +102,15 @@ export default function WorksPage() {
         </p>
         {WORKS.map(w => (
           <section key={w.series} className="works-series">
-            <h2 className="serif">{w.series}</h2>
+            <h2 className="serif">{t(w.series, SERIES_EN[w.series] ?? w.series)}</h2>
             <ul className="works-list">
               {w.items.map(it => (
                 <li key={it.name}>
                   <span className="works-name">{it.name}</span>
-                  <span className="works-type">{it.type}{it.display ? '．僅供展示' : ''}</span>
+                  <span className="works-type">
+                    {t(it.type, TYPE_EN[it.type] ?? it.type)}
+                    {it.display ? t('．僅供展示', ' · display only') : ''}
+                  </span>
                 </li>
               ))}
             </ul>
