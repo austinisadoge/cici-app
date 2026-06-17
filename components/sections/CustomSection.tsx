@@ -7,7 +7,7 @@ export function CustomSection() {
   return (
     <section className="third" id="custom">
       <div className="left">
-        <img src="/images/model-mustard.jpg" alt="custom" />
+        <img src="/images/home-custom.jpg" alt="custom" />
       </div>
       <div className="right">
         <span className="kicker">{t('客製訂製', 'Custom')}</span>

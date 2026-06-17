@@ -285,7 +285,7 @@ button { font-family: inherit; }
 /* LARGE HERO */
 .large-hero {
   position: relative; height: 80vh; min-height: 560px; overflow: hidden;
-  background: url('/images/earring-chevron.jpg') center/cover no-repeat;
+  background: url('/images/home-large-hero.jpg') center/cover no-repeat;
   background-color: #1a1a1a;
 }
 .large-hero::before {

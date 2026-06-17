@@ -8,20 +8,19 @@ export function LargeHero() {
     <section className="large-hero">
       <div className="overlay">
         <div>
-          <span className="kicker">{t('全新．耳環', 'New · Earrings')}</span>
           <h2 className="serif">
             {lang === 'zh' ? (
               <>
-                限量手作．<br />不會有第二件相同。
+                限量手作<br />獨具一格
               </>
             ) : (
               <>
-                Limited pieces.<br />No two alike.
+                Limited &amp; handmade,<br />one of a kind.
               </>
             )}
           </h2>
         </div>
-        <a className="btn" href="/shop?category=earrings">{t('探索 →', 'DISCOVER →')}</a>
+        <a className="btn" href="/shop">{t('探索 →', 'DISCOVER →')}</a>
       </div>
     </section>
   )
