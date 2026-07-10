@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const body = await req.json()
     const {
       name, email, country, category, colors,
-      stone, budget, details, reference, language, website,
+      stone, lineId, details, reference, language, website,
     } = body
 
     // honeypot：機器人會填這個隱藏欄位，假裝成功直接丟掉
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       category: clamp(category, 60),
       colors: clamp(colors, 200),
       stone: clamp(stone, 200),
-      budget: clamp(budget, 60),
+      lineId: clamp(lineId, 60),
       details: clamp(details, 3000),
       reference: clamp(reference, 400),
       language: language === 'zh' ? 'zh' : 'en',

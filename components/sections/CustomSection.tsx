@@ -1,6 +1,7 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n'
+import { BRAND } from '@/lib/brand'
 
 export function CustomSection() {
   const { t } = useI18n()
@@ -8,6 +9,13 @@ export function CustomSection() {
     <section className="third" id="custom">
       <div className="left">
         <img src="/images/home-custom.jpg" alt="custom" />
+        <div className="photo-caption">
+          {t(
+            '手作的每一刻，都是對生活的熱愛與珍視，感受其中的美好與溫情。',
+            'Every moment of handcraft carries a love and care for life. May you feel the warmth and beauty within.'
+          )}
+          <span className="serif">— {BRAND.nameFull}</span>
+        </div>
       </div>
       <div className="right">
         <span className="kicker">{t('客製訂製', 'Custom')}</span>

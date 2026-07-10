@@ -20,7 +20,7 @@ export default function CustomPage() {
     category: 'braided-bracelets',
     colors: '',
     stone: '',
-    budget: '',
+    lineId: '',
     details: '',
     reference: '',
     website: '', // honeypot
@@ -97,6 +97,10 @@ export default function CustomPage() {
                 <span className="field-label">Email *</span>
                 <input required type="email" placeholder={t('回覆討論用', 'For our reply')} value={form.email} onChange={set('email')} />
               </label>
+              <label className="field">
+                <span className="field-label">LINE ID</span>
+                <input placeholder={t('選填，方便用 LINE 和你討論', 'Optional, if you prefer LINE')} value={form.lineId} onChange={set('lineId')} />
+              </label>
               <input
                 tabIndex={-1}
                 autoComplete="off"
@@ -137,15 +141,6 @@ export default function CustomPage() {
                 value={form.stone}
                 onChange={set('stone')}
               />
-              <label className="custom-label">
-                {t('預算範圍', 'Budget')}
-                <select value={form.budget} onChange={set('budget')}>
-                  <option value="">{t('還不確定', 'Not sure yet')}</option>
-                  <option value="NT$1,000 以內">{t('NT$1,000 以內', 'Under NT$1,000')}</option>
-                  <option value="NT$1,000–2,000">NT$1,000–2,000</option>
-                  <option value="NT$2,000+">{t('NT$2,000 以上', 'NT$2,000+')}</option>
-                </select>
-              </label>
             </div>
 
             <div className="form-section">

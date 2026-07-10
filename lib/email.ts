@@ -81,7 +81,7 @@ export type CustomInquiryData = {
   category: string
   colors: string
   stone: string
-  budget: string
+  lineId: string
   details: string
   reference: string
   language: 'zh' | 'en'
@@ -106,7 +106,7 @@ ${row('地區', d.country === 'MY' ? '馬來西亞' : '台灣')}
 ${row('品類', d.category)}
 ${row('色系', d.colors)}
 ${row('來料訂製', d.stone)}
-${row('預算', d.budget)}
+${row('LINE ID', d.lineId)}
 ${row('需求描述', d.details)}
 ${row('參考連結', d.reference)}
 </table>

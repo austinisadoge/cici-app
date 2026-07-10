@@ -7,7 +7,7 @@ export function BrandAdvantages() {
   const { t } = useI18n()
   return (
     <>
-      <section className="guide-sec">
+      <section className="guide-sec" id="limited">
         <h2 className="serif">✦ {t('限量款說明', 'Limited Pieces')}</h2>
         <p>
           {t(
@@ -17,7 +17,7 @@ export function BrandAdvantages() {
         </p>
       </section>
 
-      <section className="guide-sec">
+      <section className="guide-sec" id="custom-info">
         <h2 className="serif">✦ {t('訂製說明', 'Custom Orders')}</h2>
         <ol className="guide-ol">
           <li>

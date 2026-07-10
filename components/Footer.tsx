@@ -21,7 +21,7 @@ export function Footer() {
           <div>
             <h4>{t('服務', 'Service')}</h4>
             <ul>
-              <li><a href="/guide">{t('購物說明', 'Shopping Guide')}</a></li>
+              <li><a href="/guide">{t('服務說明', 'Service Guide')}</a></li>
               <li><a href="/guide#returns">{t('退換貨說明', 'Returns')}</a></li>
               <li><a href="/custom">{t('客製訂製', 'Custom Orders')}</a></li>
               <li><a href="/#payment">{t('付款與寄送', 'Payment & Shipping')}</a></li>

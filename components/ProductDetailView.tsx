@@ -7,6 +7,7 @@ import { useCart } from '@/lib/cart'
 import { pixelViewContent } from '@/lib/fbpixel'
 import { seriesById, categoryById, type Product } from '@/lib/products'
 import type { ProductDetail } from '@/lib/catalog'
+import { BRAND } from '@/lib/brand'
 
 export function ProductDetailView({ product }: { product: ProductDetail }) {
   const { lang, cur, t } = useI18n()
@@ -112,6 +113,14 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
               )}
             </div>
 
+            {desc && (
+              <div className="pd-desc">
+                {desc.split('\n').filter(Boolean).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            )}
+
             <div className="pd-stock">
               {product.stock === 'in-stock' && t('現貨．48 小時內出貨', 'In stock · Ships within 48 hours')}
               {product.stock === 'made-to-order' && t('訂製．3–7 個工作天出貨', 'Made to order · Ships in 3–7 business days')}
@@ -126,14 +135,6 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
               <button type="button" className="btn pd-add" onClick={onAdd}>
                 {added ? t('已加入 ✓', 'ADDED ✓') : t('加入購物袋', 'ADD TO BAG')}
               </button>
-            )}
-
-            {desc && (
-              <div className="pd-desc">
-                {desc.split('\n').filter(Boolean).map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
             )}
 
             {specRows.length > 0 && (
@@ -157,6 +158,15 @@ export function ProductDetailView({ product }: { product: ProductDetail }) {
                 ))}
               </div>
             )}
+
+            <Link href="/guide" className="pd-guide-link">
+              {t('下單前請詳閱服務說明 →', 'Please read our Service Guide before ordering →')}
+            </Link>
+
+            <div className="pd-brand-sign serif">
+              {t(`「${BRAND.heroTitle.zh}」`, `“${BRAND.heroTitle.en}”`)}
+              <span>— {BRAND.nameFull}</span>
+            </div>
 
             <div className="pd-notes">
               <div>
